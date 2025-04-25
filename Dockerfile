@@ -3,10 +3,6 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-
-RUN addgroup --system django && adduser --system --ingroup django django
-USER django
-
 # work directory
 WORKDIR /app
 

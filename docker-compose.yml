@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - ./.env
     depends_on:
       postgres:
         condition: service_healthy
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
     container_name: postgres
     env_file:
-      - .env
+      - ./.env
     volumes:
       - postgres-data:/var/lib/postgresql/data
     ports:
@@ -37,7 +37,7 @@ services:
     volumes:
       - smtp4dev-data:/smtp4dev
     env_file:
-      - .env
+      - ./.env
 
 volumes:
   smtp4dev-data:
