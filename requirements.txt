@@ -15,7 +15,7 @@ channels_redis==4.2.1
 daphne==4.1.2
 
 
-# Caching and threading
+# Caching and multiprocessing
 celery==5.5.1
 redis==5.2.1
 
