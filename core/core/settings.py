@@ -38,6 +38,7 @@ CELERY_TASK_SERIALIZER = 'json'
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
