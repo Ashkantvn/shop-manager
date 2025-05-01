@@ -29,6 +29,12 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 
 
+# Celery settings
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://redis:6379/0')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://redis:6379/0')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,15 +62,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'core.urls'
 
 ASGI_APPLICATION = 'core.asgi.application'
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [config('CELERY_BROKER_URL', default='redis://redis:6379/0')],
-        },
-    },
-}
 
 TEMPLATES = [
     {
@@ -143,3 +140,14 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Channels layer backend
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [config('CELERY_BROKER_URL', default='redis://redis:6379/0')],
+        },
+    },
+}

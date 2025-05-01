@@ -36,14 +36,21 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   celery:
     build: .
     container_name: celery_worker
     command: celery -A core worker --loglevel=info
     depends_on:
-      - redis
-      - django
+      redis:
+        condition: service_healthy
+      django:
+        condition: service_started
     env_file:
       - ./.env
 
