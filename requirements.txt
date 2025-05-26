@@ -21,6 +21,7 @@ redis==5.2.1
 
 # Testing
 pytest==8.3.5
+pytest-django
 
 # Database
 psycopg2-binary==2.9.10
