@@ -50,7 +50,7 @@ class TestAccountsModels:
         assert manager.pk is not None
         assert isinstance(manager, models.BusinessManager)
         assert isinstance(manager.user, models.CustomUser)
-        assert manager.user.username == 'testuser'
+        assert manager.user.username == 'testmanager2'
         assert manager.user.check_password('testpassword')
 
     def test_business_manager_str_method(self, manager):

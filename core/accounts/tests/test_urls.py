@@ -10,7 +10,7 @@ from accounts.api.v1.views import (
 
 class TestUrls(SimpleTestCase):
     def test_user_profile_url_is_resolved(self):
-        url = reverse("accounts:profile")
+        url = reverse("accounts:profile",args=["testuser"])
         view_class = resolve(url).func.view_class
         self.assertEqual(view_class, UserProfileView)
 
@@ -25,6 +25,6 @@ class TestUrls(SimpleTestCase):
         self.assertEqual( view_class , UserLogoutView)
 
     def test_user_update_url_is_resolved(self):
-        url = reverse("accounts:update")
+        url = reverse("accounts:update",args=["testuser"])
         view_class = resolve(url).func.view_class
         self.assertEqual( view_class , UserUpdateView)
