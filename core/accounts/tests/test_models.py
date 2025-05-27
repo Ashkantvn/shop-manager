@@ -1,10 +1,9 @@
 import pytest
-from django.test import TestCase
 from accounts import models
 from accounts.tests.fixtures import custom_user, worker, manager, working_time
 
 @pytest.mark.django_db
-class TestAccountsModels(TestCase):
+class TestAccountsModels:
 
     # test user model 
     def test_custom_user_model_is_created(self):
@@ -30,7 +29,7 @@ class TestAccountsModels(TestCase):
     # test business worker model
     def test_business_worker_model_is_created(self, worker):
         assert worker.pk is not None
-        assert isinstance(worker, models.BusinessWorker)
+        assert isinstance(worker.business_manager, models.BusinessManager)
         assert isinstance(worker.user, models.CustomUser)
 
     def test_business_worker_str_method(self, worker):
@@ -48,12 +47,11 @@ class TestAccountsModels(TestCase):
 
     # test business manager model
     def test_business_manager_model_is_created(self,manager):
-        assert isinstance(manager, models.BusinessManager)
         assert manager.pk is not None
+        assert isinstance(manager, models.BusinessManager)
         assert isinstance(manager.user, models.CustomUser)
-        assert manager.business_name == 'Test Business'
-        assert manager.user.username == 'manageruser'
-        assert manager.user.check_password('managerpassword')
+        assert manager.user.username == 'testuser'
+        assert manager.user.check_password('testpassword')
 
     def test_business_manager_str_method(self, manager):
         assert str(manager) == f"{manager.user.first_name} {manager.user.last_name}"

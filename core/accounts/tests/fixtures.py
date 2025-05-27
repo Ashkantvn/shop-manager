@@ -21,7 +21,7 @@ def custom_user():
 def worker(custom_user):
     worker = models.BusinessWorker.objects.create(
         user=custom_user,
-        manager=models.BusinessManager.objects.create(user=custom_user)
+        business_manager=models.BusinessManager.objects.create(user=custom_user)
     )
     yield worker
     if worker.pk:
