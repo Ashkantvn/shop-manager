@@ -25,18 +25,24 @@ def authenticated_manager():
 @pytest.fixture
 def authenticated_worker():
     client = APIClient()
-    custom_user = User.objects.create_user(
+    worker_user = User.objects.create_user(
         username='testworker',
         password='testpassword',
         first_name='Test',
         last_name='Worker'
     )
-    business_manager = models.BusinessManager.objects.create(user=custom_user)
+    manager_user = User.objects.create_user(
+        username='testmanager4',
+        password='testpassword',
+        first_name='Test',
+        last_name='Manager'
+    )
+    business_manager = models.BusinessManager.objects.create(user=manager_user)
     worker = models.BusinessWorker.objects.create(
-        user=custom_user,
+        user=worker_user,
         business_manager=business_manager
     )
-    client.login(username=custom_user.username, password='testpassword')
+    client.login(username=worker_user.username, password='testpassword')
     try:
         yield client
     finally:
@@ -59,15 +65,21 @@ def custom_user():
 
 @pytest.fixture
 def worker():
-    custom_user = User.objects.create_user(
+    worker_user = User.objects.create_user(
         username='testworker2',
         password='testpassword',
         first_name='Test',
         last_name='Worker'
     )
+    manager_user = User.objects.create_user(
+        username='testmanager5',
+        password='testpassword',
+        first_name='Test',
+        last_name='Manager'
+    )
     worker = models.BusinessWorker.objects.create(
-        user=custom_user,
-        business_manager=models.BusinessManager.objects.create(user=custom_user)
+        user=worker_user,
+        business_manager=models.BusinessManager.objects.create(user=manager_user)
     )
     try:
         yield worker
