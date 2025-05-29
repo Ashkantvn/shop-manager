@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 
 
 class LoginRequiredMiddleware:
@@ -15,8 +16,9 @@ class LoginRequiredMiddleware:
             not request.user.is_authenticated 
             and not request.path.startswith('/accounts/login/') 
             and not request.path.startswith('/admin/login/')
-            and not request.path.startswith('/api/v1/accounts/login/')      
         ):
-            return redirect('/admin/login/')  # Redirect to the login page if not authenticated
+            response = HttpResponseRedirect('/admin/login/')
+            response.status_code = 401
+            return response
         response = self.get_response(request)
         return response
