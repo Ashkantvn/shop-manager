@@ -63,12 +63,12 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
-    'core.middleware.LoginRequiredMiddleware',  # Custom middleware to check login status
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'core.middleware.LoginRequiredMiddleware',  # Custom middleware to check login status
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
