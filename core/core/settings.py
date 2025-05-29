@@ -63,6 +63,7 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    'core.middleware.LoginRequiredMiddleware',  # Custom middleware to check login status
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -168,3 +169,17 @@ CHANNEL_LAYERS = {
 
 # Custom user model
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+# Authentication required for API views
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',  # Username & password authentication
+        'rest_framework.authentication.SessionAuthentication',  # Standard Django authentication
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Require login for API access
+    ],
+}
+
+
