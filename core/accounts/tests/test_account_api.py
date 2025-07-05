@@ -58,3 +58,37 @@ class TestAccountApi:
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
+    # Test Profile Api
+    # All logged in users can see their profile 
+    # Manager can see the profile of all workers
+    # Worker can see the profile of themselves
+    def test_GET_profile_200(self, authenticated_worker):
+        client = authenticated_worker
+        url = reverse("accounts:profile", args=[authenticated_worker.user.username])
+        response = client.get(url)
+        assert response.status_code == status.HTTP_200_OK
+        assert 'woeker' in response.data
+        assert isinstance(response.data['worker'], dict)
+        
+
+    def test_GET_profile_200_manager(self, authenticated_manager):
+        client = authenticated_manager
+        url = reverse("accounts:profile", args=[authenticated_manager.user.username])
+        response = client.get(url)
+        assert response.status_code == status.HTTP_200_OK
+        assert 'manager' in response.data
+        assert isinstance(response.data['manager'], dict)
+
+    def test_GET_profile_401(self, worker):
+        client = APIClient()
+        url = reverse("accounts:profile", args=[worker.user.username])
+        response = client.get(url)
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    def test_GET_profile_404(self, authenticated_manager):
+        client = authenticated_manager
+        url = reverse("accounts:profile", args=["invalid_username"])
+        response = client.get(url)
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+
+

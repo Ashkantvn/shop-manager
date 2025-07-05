@@ -18,6 +18,7 @@ def authenticated_manager():
     )
     manager = models.BusinessManager.objects.create(user=custom_user)
     client.login(username=custom_user.username, password='testpassword')
+    client.user = custom_user
     yield client
     if manager:
         manager.delete()
@@ -43,11 +44,12 @@ def authenticated_worker():
         business_manager=business_manager
     )
     client.login(username=worker_user.username, password='testpassword')
+    client.user = worker_user
     try:
         yield client
     finally:
         if worker:
-            worker.delete()
+            business_manager.delete()
 
 @pytest.fixture
 def custom_user():
