@@ -85,6 +85,12 @@ class TestAccountApi:
         response = client.get(url)
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
+    def test_GET_profile_403(self,worker, authenticated_worker):
+        client = authenticated_worker
+        url = reverse("accounts:profile", args=[worker.user.username])
+        response = client.get(url)
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
     def test_GET_profile_404(self, authenticated_manager):
         client = authenticated_manager
         url = reverse("accounts:profile", args=["invalid_username"])
