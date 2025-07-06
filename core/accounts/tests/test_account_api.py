@@ -75,9 +75,9 @@ class TestAccountApi:
         client = authenticated_manager
         url = reverse("accounts:profile")
         response = client.get(url)
-        assert response.data == status.HTTP_200_OK
+        assert response.status_code == status.HTTP_200_OK
         assert 'workers' in response.data
-        assert isinstance(response.data['workers'], dict)
+        assert isinstance(response.data['workers'], list)
 
     def test_GET_profile_401(self):
         client = APIClient()
