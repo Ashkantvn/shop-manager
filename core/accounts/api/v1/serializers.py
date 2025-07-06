@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from accounts.models import WorkingTime
+from accounts.models import WorkingTime, BusinessWorker
 
 
 
@@ -28,3 +28,39 @@ class WorkingTimeSerializer(serializers.ModelSerializer):
         if attrs['start_time'] >= attrs['end_time']:
             raise serializers.ValidationError("Start time must be before end time.")
         return attrs
+    
+
+class WorkerSerializer(serializers.ModelSerializer):
+    """
+    Serializer for worker.
+    """
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+    manager = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BusinessWorker
+        fields = ['id', 'first_name', 'last_name', 'manager']
+        read_only_fields = ['id', 'first_name', 'last_name', 'manager']
+
+    def get_first_name(self, obj):
+        """
+        Get the first name of the worker.
+        """
+        return obj.user.first_name
+    
+    def get_last_name(self, obj):
+        """
+        Get the last name of the worker.
+        """
+        return obj.user.last_name
+
+    def get_manager(self, obj):
+        """
+        Get the manager of the worker.
+        """
+        manager_user = obj.business_manager.user
+        return {
+            'first_name': manager_user.first_name,
+            'last_name': manager_user.last_name,
+        }
