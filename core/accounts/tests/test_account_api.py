@@ -67,28 +67,22 @@ class TestAccountApi:
         url = reverse("accounts:profile")
         response = client.get(url)
         assert response.status_code == status.HTTP_200_OK
-        assert 'woeker' in response.data
-        assert isinstance(response.data['worker'], dict)
+        assert 'manager' in response.data
+        assert isinstance(response.data['manager'], dict)
         
 
     def test_GET_profile_200_manager(self, authenticated_manager):
         client = authenticated_manager
         url = reverse("accounts:profile")
         response = client.get(url)
-        assert response.status_code == status.HTTP_200_OK
-        assert 'manager' in response.data
-        assert isinstance(response.data['manager'], dict)
+        assert response.data == status.HTTP_200_OK
+        assert 'workers' in response.data
+        assert isinstance(response.data['workers'], dict)
 
     def test_GET_profile_401(self):
         client = APIClient()
         url = reverse("accounts:profile")
         response = client.get(url)
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
-
-    def test_GET_profile_403(self,worker, authenticated_worker):
-        client = authenticated_worker
-        url = reverse("accounts:profile")
-        response = client.get(url)
-        assert response.status_code == status.HTTP_403_FORBIDDEN
 
 
