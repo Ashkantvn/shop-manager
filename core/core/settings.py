@@ -59,6 +59,9 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,  # Default page size for paginated responses
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Require login for API access
+    ],
 }
 
 
@@ -169,17 +172,5 @@ CHANNEL_LAYERS = {
 
 # Custom user model
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
-
-# Authentication required for API views
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',  # Username & password authentication
-        'rest_framework.authentication.SessionAuthentication',  # Standard Django authentication
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Require login for API access
-    ],
-}
 
 
