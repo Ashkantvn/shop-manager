@@ -5,7 +5,7 @@ from accounts.api.v1.views import (
     UserUpdateView,
     UserProfileView
 )
-from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 class TestUrls(SimpleTestCase):
@@ -28,3 +28,8 @@ class TestUrls(SimpleTestCase):
         url = reverse("accounts:update",args=["testuser"])
         view_class = resolve(url).func.view_class
         self.assertEqual( view_class , UserUpdateView)
+
+    def test_token_refresh_url_is_resolved(self):
+        url = reverse("accounts:refresh_token")
+        view_class = resolve(url).func.view_class
+        self.assertEqual( view_class , TokenRefreshView)
