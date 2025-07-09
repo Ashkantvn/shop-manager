@@ -85,4 +85,40 @@ class TestAccountApi:
         response = client.get(url)
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
+    # Test logout API
+    # All logged in users can logout
+    def test_POST_logout_200(self, authenticated_worker):
+        client = authenticated_worker
+        url = reverse("accounts:logout")
+        response = client.post(url)
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_POST_logout_401(self):
+        client = APIClient()
+        url = reverse("accounts:logout")
+        response = client.post(url)
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+    # Test login API and token refresh API
+    # They use default views from rest_framework_simplejwt
+    # Only test for authentication and permission
+    def test_POST_not_authenticated_can_login(self):
+        client = APIClient()
+        url = reverse("accounts:login")
+        data = {
+            "username": "testuser",
+            "password": "testpassword"
+        }
+        response = client.post(url,data=data, format='json')
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_POST_refresh_token_401(self):
+        client = APIClient()
+        url = reverse("accounts:refresh_token")
+        data = {
+            "refresh_token": "invalid_token"
+        }
+        response = client.post(url,data=data, format='json')
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
