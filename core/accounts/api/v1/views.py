@@ -23,9 +23,6 @@ class UserProfileView(APIView):
             serializer = ManagerSerializer(user.business_manager)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         return Response(data={'detail': "Bad request"}, status=status.HTTP_400_BAD_REQUEST)
-
-class UserLoginView(APIView):
-    pass
     
 class UserLogoutView(APIView):
     pass
