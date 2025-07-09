@@ -14,7 +14,7 @@ class LoginRequiredMiddleware:
     def __call__(self, request):
         if (
             not request.user.is_authenticated 
-            and not request.path.startswith('/accounts/login/') 
+            and not request.path.startswith('/api/v1/accounts/login/') 
             and not request.path.startswith('/admin/login/')
         ):
             response = HttpResponseRedirect('/admin/login/')
