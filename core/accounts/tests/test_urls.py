@@ -1,12 +1,11 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from accounts.api.v1.views import (
-    UserLoginView,
     UserLogoutView,
     UserUpdateView,
     UserProfileView
 )
-from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 
 class TestUrls(SimpleTestCase):
@@ -18,7 +17,7 @@ class TestUrls(SimpleTestCase):
     def test_user_login_url_is_resolved(self):
         url = reverse("accounts:login")
         view_class = resolve(url).func.view_class
-        self.assertEqual( view_class , UserLoginView)
+        self.assertEqual( view_class , TokenObtainPairView)
 
     def test_user_logout_url_is_resolved(self):
         url = reverse("accounts:logout")

@@ -103,11 +103,11 @@ class TestAccountApi:
     # Test login API and token refresh API
     # They use default views from rest_framework_simplejwt
     # Only test for authentication and permission
-    def test_POST_not_authenticated_can_login(self):
+    def test_POST_not_authenticated_can_login(self,worker):
         client = APIClient()
         url = reverse("accounts:login")
         data = {
-            "username": "testuser",
+            "username": worker.user.username,
             "password": "testpassword"
         }
         response = client.post(url,data=data, format='json')
