@@ -87,11 +87,11 @@ class TestAccountApi:
 
     # Test logout API
     # All logged in users can logout
-    def test_POST_logout_200(self, authenticated_worker):
+    def test_POST_logout_204(self, authenticated_worker):
         client = authenticated_worker
         url = reverse("accounts:logout")
         response = client.post(url)
-        assert response.status_code == status.HTTP_200_OK
+        assert response.status_code == status.HTTP_204_NO_CONTENT
 
     def test_POST_logout_401(self):
         client = APIClient()
