@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from accounts import models
 from rest_framework.test import APIClient
+from rest_framework_simplejwt.tokens import AccessToken
 
 User = get_user_model()
 
@@ -130,3 +131,24 @@ def working_time():
     finally:
         if working_time.pk:
             working_time.delete()
+
+
+# Blacklist access token fixture
+@pytest.fixture
+def blacklist_access_token():
+    user = User.objects.create_user(
+        username='testuser3',
+        password='testpassword',
+        first_name='Test',
+        last_name='User'
+    )
+    access_token = AccessToken.for_user(user)
+    access_token
+    blacklist_token = models.AccessTokenBlackList.objects.create(token=str(access_token),expire_date = access_token['exp'])
+    try:
+        yield blacklist_token
+    finally:
+        if blacklist_token.pk:
+            blacklist_token.delete()
+        if user.pk:
+            user.delete()

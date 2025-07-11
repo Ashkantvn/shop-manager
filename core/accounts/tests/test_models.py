@@ -1,6 +1,12 @@
 import pytest
 from accounts import models
-from accounts.tests.fixtures import custom_user, worker, manager, working_time
+from accounts.tests.fixtures import (
+    custom_user, 
+    worker, 
+    manager, 
+    working_time,
+    blacklist_access_token,
+    )
 
 @pytest.mark.django_db
 class TestAccountsModels:
@@ -55,3 +61,13 @@ class TestAccountsModels:
 
     def test_business_manager_str_method(self, manager):
         assert str(manager) == f"{manager.user.first_name} {manager.user.last_name}"
+
+    # Test blacklist access token model
+    def test_blacklist_access_token_model_is_created(self, blacklist_access_token):
+        assert blacklist_access_token.pk is not None
+        assert isinstance(blacklist_access_token, models.AccessTokenBlackList)
+        assert isinstance(blacklist_access_token.token, str)
+        assert blacklist_access_token.expire_date is not None
+
+    def test_blacklist_access_token_str_method(self, blacklist_access_token):
+        assert str(blacklist_access_token) == f"Token: {blacklist_access_token.token}, Expire Date: {blacklist_access_token.expire_date}"
