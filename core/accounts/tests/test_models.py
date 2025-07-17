@@ -67,7 +67,6 @@ class TestAccountsModels:
         assert blacklist_access_token.pk is not None
         assert isinstance(blacklist_access_token, models.AccessTokenBlackList)
         assert isinstance(blacklist_access_token.token, str)
-        assert blacklist_access_token.expire_date is not None
 
     def test_blacklist_access_token_str_method(self, blacklist_access_token):
-        assert str(blacklist_access_token) == f"Token: {blacklist_access_token.token}, Expire Date: {blacklist_access_token.expire_date}"
+        assert str(blacklist_access_token) == f"Token: {blacklist_access_token.token}"

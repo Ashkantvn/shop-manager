@@ -143,8 +143,7 @@ def blacklist_access_token():
         last_name='User'
     )
     access_token = AccessToken.for_user(user)
-    access_token
-    blacklist_token = models.AccessTokenBlackList.objects.create(token=str(access_token),expire_date = access_token['exp'])
+    blacklist_token = models.AccessTokenBlackList.objects.create(token=str(access_token))
     try:
         yield blacklist_token
     finally:
