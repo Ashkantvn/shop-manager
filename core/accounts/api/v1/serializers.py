@@ -100,3 +100,8 @@ class ManagerSerializer(serializers.ModelSerializer):
             'first_name': worker.user.first_name,
             'last_name': worker.user.last_name,
         } for worker in workers]
+    
+
+class LogoutSerializer(serializers.Serializer):
+    refresh_token = serializers.CharField()
+    access_token = serializers.CharField()

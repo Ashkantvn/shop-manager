@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from accounts.models import BusinessWorker, AccessTokenBlackList
-from accounts.api.v1.serializers import WorkingTimeSerializer, WorkerSerializer, ManagerSerializer
+from accounts.api.v1.serializers import WorkingTimeSerializer, WorkerSerializer, ManagerSerializer, LogoutSerializer
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework_simplejwt.exceptions import TokenError
@@ -31,31 +31,32 @@ class UserLogoutView(APIView):
         """
         Logout user and invalidate refresh and access tokens.
         """
+        serializer = LogoutSerializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+
+        refresh_token_str = serializer.validated_data["refresh_token"]
+        access_token_str = serializer.validated_data["access_token"]
+        
         try:
             # Invalidate refresh token
-            refresh_token_str = request.data.get("refresh_token")
-            access_token_str = request.data.get("access_token")
+            refresh_token = RefreshToken(refresh_token_str)
+            refresh_token.blacklist()
 
-            if refresh_token_str:
-                refresh_token = RefreshToken(refresh_token_str)
-                refresh_token.blacklist()
+            # Blacklist access token derived from refresh
+            derived_access_token = refresh_token.access_token
+            derived_access_token_str = str(derived_access_token)
+            AccessTokenBlackList.objects.get_or_create(token=derived_access_token_str)
 
-                # Blacklist access token derived from refresh
-                derived_access_token = refresh_token.access_token
-                AccessTokenBlackList.objects.get_or_create(token=str(derived_access_token))
+            #Invalidate access token
+            access_token = AccessToken(access_token_str)
+            access_token_str = str(access_token)
 
-            if access_token_str:
-                access_token = AccessToken(access_token_str)
-                token_str = str(access_token)
-
-                # Avoid blacklisting twice
-                if not AccessTokenBlackList.objects.filter(token=token_str).exists():
-                    AccessTokenBlackList.objects.create(token=token_str)
+            AccessTokenBlackList.objects.get_or_create(token = access_token_str)
 
         except TokenError as error:
             return Response({"detail": str(error)}, status=status.HTTP_401_UNAUTHORIZED)
         except Exception as error:
-            return Response({"detail": "Logout failed."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": str(error)}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
