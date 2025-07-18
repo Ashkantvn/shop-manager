@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from accounts import models
 from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework_simplejwt.tokens import AccessToken,RefreshToken
 
 User = get_user_model()
 
@@ -45,7 +45,14 @@ def authenticated_worker():
         business_manager=business_manager
     )
     client.login(username=worker_user.username, password='testpassword')
+
+    # Generate refresh token for worker
+    refresh_token = RefreshToken().for_user(user=worker_user)
+    
+    # Add token and user to client object
     client.user = worker_user
+    client.token = refresh_token
+    
     try:
         yield client
     finally:

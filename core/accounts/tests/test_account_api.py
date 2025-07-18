@@ -90,7 +90,11 @@ class TestAccountApi:
     def test_POST_logout_204(self, authenticated_worker):
         client = authenticated_worker
         url = reverse("accounts:logout")
-        response = client.post(url)
+        data={
+            "access_token": str(authenticated_worker.token.access_token),
+            "refresh_token": str(authenticated_worker.token)
+        }
+        response = client.post(url,data,format="json")
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
     def test_POST_logout_401(self):
