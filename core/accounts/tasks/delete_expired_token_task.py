@@ -1,5 +1,5 @@
-from celery import shared_task
+import celery
 
-@shared_task
+@celery.shared_task
 def delete_expired_token():
     pass
