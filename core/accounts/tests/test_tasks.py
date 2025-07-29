@@ -1,12 +1,11 @@
 import pytest
-from accounts.models import AccessTokenBlackList
 from accounts.tasks.delete_expired_token_task import delete_expired_token
 
-
-@pytest.mark.celery
-def test_delete_expired_token_task(celery_app, celery_worker):
-    """
-    Test the delete_expired_token task to ensure it can be called without errors.
-    """
-    result = delete_expired_token.delay().get(timeout=10)
-    assert result.successful()  # Ensure the task was executed successfully
+@pytest.mark.django_db
+class TestTasks:
+    def test_delete_expired_token_task(self):
+        """
+        Test the delete_expired_token task to ensure it can be called without errors.
+        """
+        result = delete_expired_token()
+        assert result == "Expired tokens deleted successfully"
