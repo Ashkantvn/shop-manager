@@ -90,3 +90,6 @@ typing_extensions==4.13.2
 six==1.17.0
 attrs==25.3.0
 certifi==2025.7.14
+
+# 🗄️ Database Support
+psycopg2-binary
