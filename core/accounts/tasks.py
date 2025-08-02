@@ -1,9 +1,10 @@
-import celery
+from celery import shared_task
 from accounts.models import AccessTokenBlackList
 from django.utils import timezone
 from datetime import timedelta
 
-@celery.shared_task
+
+@shared_task
 def delete_expired_token():
     """
     Task to delete expired access tokens from the blacklist.
