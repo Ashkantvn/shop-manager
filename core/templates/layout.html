@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}Shop Manager{% endblock %}
+    </title>
+</head>
+<body>
+    <header>
+        <nav>
+            {% block nav %}
+            <h1>Shop Manager</h1>
+            {% endblock %}
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        <p>Welcome to the Shop Manager application.</p>
+        {% endblock %}
+    </main>
+    <footer>
+        {% block footer %}
+        <p>&copy; 2025 Shop Manager</p>
+        {% endblock %}
+    </footer>
+</body>
+</html>
