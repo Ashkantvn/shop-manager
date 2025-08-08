@@ -7,8 +7,13 @@ from accounts.api.v1.views import (
 )
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
+# App views
+from accounts import views as app_views
+
 
 class TestUrls(SimpleTestCase):
+
+    # Tests for the API URLs
     def test_user_profile_url_is_resolved(self):
         url = reverse("accounts:profile")
         view_class = resolve(url).func.view_class
@@ -33,3 +38,10 @@ class TestUrls(SimpleTestCase):
         url = reverse("accounts:refresh_token")
         view_class = resolve(url).func.view_class
         self.assertEqual( view_class , TokenRefreshView)
+
+
+    # Test for the app URLs
+    def test_app_profile_url_is_resolved(self):
+        url = reverse("app-accounts:app-profile")
+        view_class = resolve(url).func.view_class
+        self.assertEqual(view_class, app_views.AppProfileView)
