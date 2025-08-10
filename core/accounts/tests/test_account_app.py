@@ -7,6 +7,6 @@ class TestAccountApp:
     def test_app_profile_view(self, authenticated_manager):
         client = authenticated_manager
         url = reverse("app-accounts:app-profile")
-        response = client.get('/accounts/profile/')
+        response = client.get(url)
         assert response.status_code == 200
         assert 'accounts/profile.html' in response.template_name
