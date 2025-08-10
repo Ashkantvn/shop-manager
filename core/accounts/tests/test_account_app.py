@@ -1,0 +1,11 @@
+import pytest
+from accounts.tests.fixtures import authenticated_manager
+
+
+@pytest.mark.django_db
+class TestAccountApp:
+    def test_app_profile_view(self, authenticated_manager):
+        client = authenticated_manager
+        response = client.get('/accounts/profile/')
+        assert response.status_code == 200
+        assert 'accounts/profile.html' in response.template_name
