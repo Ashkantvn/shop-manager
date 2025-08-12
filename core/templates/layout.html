@@ -17,15 +17,17 @@
             {% endblock %}
         </nav>
     </header>
-    <main>
-        {% block content %}
-        <p>Welcome to the Shop Manager application.</p>
-        {% endblock %}
-    </main>
-    <footer>
-        {% block footer %}
-        <p>&copy; 2025 Shop Manager</p>
-        {% endblock %}
-    </footer>
+    <div class="layout">
+        <main>
+            {% block content %}
+            <p>Welcome to the Shop Manager application.</p>
+            {% endblock %}
+        </main>
+        <footer>
+            {% block footer %}
+            <p>&copy; 2025 Shop Manager</p>
+            {% endblock %}
+        </footer>
+    </div>
 </body>
 </html>

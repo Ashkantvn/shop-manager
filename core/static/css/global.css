@@ -3,12 +3,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-align: center;
 }
 body,html{
     width: 100%;
+    min-height: 100vh;
     background-color: #BDC3C7;
     color:#2c3e50;
-    padding-top:3em;
 }
 
 /* buttons */
@@ -28,13 +29,9 @@ button:hover{
 /* header and footer */
 header{
     position: fixed;
-    width: 100%;
-    top: 0;
-}
-footer{
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 header,footer{
     background-color: #2c3e50;
@@ -48,3 +45,41 @@ header,footer{
 .alert{
     background-color: #cb4c4e;
 }
+
+
+/* small screen styles */
+@media screen and (max-width: 600px){
+    .layout{
+        margin-bottom:clamp(60px,10vh,90px);
+    }
+    header{
+        bottom: 0;
+        top: auto;
+        height: clamp(60px, 10vh, 90px);
+    }
+}
+
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
+    .layout{
+        margin-left:clamp(60px, 10vw, 90px);
+    }
+    header{
+        left:0;
+        top: auto;
+        width: clamp(60px, 10vw, 90px);
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 900px){
+    .layout{
+        margin-top:clamp(120px, 20vh, 180px);
+    }
+    header{
+        top: 0;
+        height:clamp(120px, 20vh, 180px);
+        width:100%;
+    }
+}
+
