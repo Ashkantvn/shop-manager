@@ -1,4 +1,9 @@
 {% extends "layout.html" %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}"/>
+{% endblock link %}
 
 {% block content %}
 <p>This is the page.</p>
