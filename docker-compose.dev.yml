@@ -56,6 +56,20 @@ services:
       - ./.env
     working_dir: /app
 
+  celery-beat:
+      build: .
+      container_name: celery_beat
+      command: celery -A core beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+      depends_on:
+        redis:
+          condition: service_healthy
+        django:
+          condition: service_started
+      env_file:
+        - ./.env
+      working_dir: /app
+
+
 
   smtp4dev:
     image: rnwood/smtp4dev:v3

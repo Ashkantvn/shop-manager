@@ -12,6 +12,7 @@ djangorestframework_simplejwt==5.5.0
 PyJWT==2.9.0
 
 # 🧵 Celery and Task Queue
+django-celery-beat
 celery==5.5.1
 kombu==5.5.3
 billiard==4.2.1
