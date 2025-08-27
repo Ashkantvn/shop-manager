@@ -39,6 +39,11 @@
 <p>
     {% for worker in profile.business_manager_workers %}
         <p>{{worker}}</p>
+        {% for working_time in worker.working_times.all %}
+            <p>{{working_time.start_time}}</p>
+            <p>{{working_time.end_time}}</p>
+            <p>{{working_time.created_date}}</p>
+        {% endfor %}
         {% empty %}
         <p>no worker found</p>
     {% endfor %}
