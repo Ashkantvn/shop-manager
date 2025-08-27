@@ -4,31 +4,6 @@ from accounts.models import WorkingTime, BusinessWorker, BusinessManager
 
 
 
-class WorkingTimeSerializer(serializers.ModelSerializer):
-    """
-    Serializer for working time.
-    """
-    class Meta:
-        model = WorkingTime
-        fields = ['start_time', 'end_time']
-        read_only_fields = ['id']
-
-
-    def create(self, validated_data):
-        """
-        Create a new working time instance.
-        """
-        return WorkingTime.objects.create(**validated_data)
-
-
-    def validate(self, attrs):
-        """
-        Validate that start_time is before end_time.
-        """
-        if attrs['start_time'] >= attrs['end_time']:
-            raise serializers.ValidationError("Start time must be before end time.")
-        return attrs
-    
 
 class WorkerSerializer(serializers.ModelSerializer):
     """
@@ -65,6 +40,59 @@ class WorkerSerializer(serializers.ModelSerializer):
             'last_name': manager_user.last_name,
         }
 
+# Profile serializer for manager
+class WorkingTimeSerializer(serializers.ModelSerializer):
+    """
+    Serializer for working time.
+    """
+    class Meta:
+        model = WorkingTime
+        fields = ['start_time', 'end_time','created_date']
+        read_only_fields = ['id']
+
+
+    def create(self, validated_data):
+        """
+        Create a new working time instance.
+        """
+        return WorkingTime.objects.create(**validated_data)
+
+
+    def validate(self, attrs):
+        """
+        Validate that start_time is before end_time.
+        """
+        if attrs['start_time'] >= attrs['end_time']:
+            raise serializers.ValidationError("Start time must be before end time.")
+        return attrs
+    
+
+class WorkerForManagerSerializer(serializers.ModelSerializer):
+    """
+    Serializer of workers 
+    for manager serializer
+    """
+    working_times = WorkingTimeSerializer(many=True)
+    username = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BusinessWorker
+        fields = ['username','first_name', 'last_name','working_times']
+
+    def get_username(self, obj):
+        username = obj.user.username
+        return username
+    
+    def get_first_name(self, obj):
+        first_name = obj.user.first_name
+        return first_name
+    
+    def get_last_name(self, obj):
+        last_name = obj.user.last_name
+        return last_name
+    
 
 class ManagerSerializer(serializers.ModelSerializer):
     """
@@ -72,6 +100,7 @@ class ManagerSerializer(serializers.ModelSerializer):
     """
     first_name = serializers.SerializerMethodField()
     last_name = serializers.SerializerMethodField()
+    workers =  WorkerForManagerSerializer(many=True)
 
     class Meta:
         model = BusinessManager
@@ -99,6 +128,7 @@ class ManagerSerializer(serializers.ModelSerializer):
             'username': worker.user.username,
             'first_name': worker.user.first_name,
             'last_name': worker.user.last_name,
+            'working_time': [str(time) for time in worker.working_times.all()]
         } for worker in workers]
     
 
