@@ -35,5 +35,12 @@
 
 
 {% block content %}
-<p>This is the page.</p>
+<p>{{ profile.business_manager }}</p>
+<p>
+    {% for worker in profile.business_manager_workers %}
+        <p>{{worker}}</p>
+        {% empty %}
+        <p>no worker found</p>
+    {% endfor %}
+</p>
 {% endblock %}
