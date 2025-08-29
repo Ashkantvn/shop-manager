@@ -25,6 +25,7 @@ class TestAccountsModels:
         assert user.last_name == 'User'
         assert user.username == 'testuser'
         assert user.check_password('testpassword')
+        assert user.user_slug == "testuser"
         assert user.is_active is True
         assert user.is_staff is False
         assert user.is_superuser is False
