@@ -26,3 +26,13 @@ class AppProfileView(View):
 
         return render(request, 'accounts/profile.html',context={'profile':profile})
     
+
+# Login view for the app
+class AppLoginView(View):
+    
+    def get(self, request):
+        """
+        Render the login page for the app.
+        """
+        return render(request, 'accounts/login.html')
+    
