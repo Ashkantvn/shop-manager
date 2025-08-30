@@ -1,5 +1,6 @@
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 class LoginRequiredMiddleware:
@@ -25,8 +26,7 @@ class LoginRequiredMiddleware:
             and not request.path.startswith('/accounts/login/')
             and not request.path.startswith('/admin/login/')
         ):
-            response = HttpResponseRedirect('/accounts/login/') 
-            response.status_code = 401
+            response = HttpResponseRedirect(reverse('app-accounts:login')) 
             return response
         response = self.get_response(request)
         return response
