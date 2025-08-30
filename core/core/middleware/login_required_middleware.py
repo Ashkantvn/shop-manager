@@ -12,12 +12,20 @@ class LoginRequiredMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        # Allow access static files
+        if request.path.startswith('/static/') or request.path.startswith('/media/'):
+            return self.get_response(request)
+        
+        # Skip force authentication of 
+        if request.path.startswith('/api/'):
+            return self.get_response(request)
+
         if (
             not request.user.is_authenticated 
             and not request.path.startswith('/api/v1/accounts/login/') 
             and not request.path.startswith('/admin/login/')
         ):
-            response = HttpResponseRedirect('/admin/login/')
+            response = HttpResponseRedirect('/admin/login/') # It must be changed after create the login page
             response.status_code = 401
             return response
         response = self.get_response(request)
