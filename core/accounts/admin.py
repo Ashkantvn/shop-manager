@@ -6,10 +6,9 @@ from django.contrib.auth.admin import UserAdmin
 class CustomUserAdmin(UserAdmin):
     model = models.CustomUser
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('user_slug',)}),
+        ("Other information", {'fields': ('user_slug','created_date','updated_date')}),
     )
-    readonly_fields = ('user_slug','created_date','updated_date')
-    list_display = ('username', 'first_name', 'last_name', 'user_slug', 'created_date','updated_date')
+    readonly_fields = ('user_slug','created_date','updated_date','date_joined','last_login')
 
 
 admin.site.register(models.CustomUser, CustomUserAdmin)
