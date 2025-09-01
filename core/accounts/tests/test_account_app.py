@@ -42,3 +42,9 @@ class TestAccountApp:
         assert response.status_code == 302
         assert response.url == reverse("app-accounts:app-profile")
 
+        # Check if the user is logged in
+        response = client.get(reverse("app-accounts:app-profile"))
+        assert response.status_code == 200
+        assert client.session['_auth_user_id'] == str(custom_user.pk)
+
+

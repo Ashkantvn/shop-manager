@@ -1,7 +1,6 @@
 from django.views import View
-from django.shortcuts import render
-from django.contrib.auth import get_user_model
-from accounts.models import BusinessWorker
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import get_user_model ,login
 
 User = get_user_model()
 
@@ -35,4 +34,17 @@ class AppLoginView(View):
         Render the login page for the app.
         """
         return render(request, 'accounts/login.html')
+    
+    def post(self, request):
+        """
+        Handle the login form submission for the app.
+        """
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = get_object_or_404(User, username=username)
+        if user.check_password(password):
+            login(request, user)
+            return redirect('app-accounts:app-profile')
+        else:
+            return render(request, 'accounts/login.html', {'error': 'Password is incorrect'})
     
