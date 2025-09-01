@@ -48,3 +48,7 @@ class AppLoginView(View):
         else:
             return render(request, 'accounts/login.html', {'error': 'Password is incorrect'})
     
+
+# User update view
+class AppUserUpdateView(View):
+    pass    
