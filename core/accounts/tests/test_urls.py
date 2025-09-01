@@ -50,3 +50,8 @@ class TestUrls(SimpleTestCase):
         url = reverse("app-accounts:login")
         view_class = resolve(url).func.view_class
         self.assertEqual(view_class, app_views.AppLoginView)
+
+    def test_app_update_url_is_resolved(self):
+        url = reverse("app-accounts:update",args=['test-user'])
+        view_class = resolve(url).func.view_class
+        self.assertEqual(view_class, app_views.AppUserUpdateView)
