@@ -40,5 +40,5 @@ class TestAccountApp:
         
         # Check if the user is redirected to the profile page
         assert response.status_code == 302
-        assert response.url == reverse("app-accounts:profile")
+        assert response.url == reverse("app-accounts:app-profile")
 
