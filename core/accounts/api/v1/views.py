@@ -64,12 +64,12 @@ class UserLogoutView(APIView):
 class UserUpdateView(APIView):
     permission_classes = [IsManager]
     
-    def post(self, request, username):
+    def post(self, request, user_slug):
         """
         Update the working time of a worker.
         Only accessible by managers.
         """
-        business_worker = get_object_or_404(BusinessWorker, user__username=username)
+        business_worker = get_object_or_404(BusinessWorker, user__user_slug=user_slug)
         serializer = WorkingTimeSerializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         serializer.save(business_worker=business_worker)

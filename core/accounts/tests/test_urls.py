@@ -45,3 +45,8 @@ class TestUrls(SimpleTestCase):
         url = reverse("app-accounts:app-profile")
         view_class = resolve(url).func.view_class
         self.assertEqual(view_class, app_views.AppProfileView)
+
+    def test_app_login_url_is_resolved(self):
+        url = reverse("app-accounts:login")
+        view_class = resolve(url).func.view_class
+        self.assertEqual(view_class, app_views.AppLoginView)
