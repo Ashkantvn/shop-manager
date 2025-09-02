@@ -2,6 +2,7 @@ import pytest
 from accounts.tests.fixtures import authenticated_manager, custom_user
 from django.urls import reverse
 from django.test import Client
+from accounts import models
 
 
 @pytest.mark.django_db
@@ -46,5 +47,30 @@ class TestAccountApp:
         response = client.get(reverse("app-accounts:app-profile"))
         assert response.status_code == 200
         assert client.session['_auth_user_id'] == str(custom_user.pk)
+
+    # Test for app User update view
+    def test_GET_user_update_view(self,authenticated_manager):                
+        client =authenticated_manager
+        url = reverse('app-accounts:update',args=[authenticated_manager.user.user_slug])
+
+        response = client.get(url)
+        assert response.status_code == 200
+        assert 'accounts/update.html' in [template.name for template in response.templates]
+
+    def test_POST_user_update_view(self,authenticated_manager):
+        
+        client =authenticated_manager
+        url = reverse('app-accounts:update',args=[authenticated_manager.user.user_slug])
+
+        # Working time data
+        data = {
+            'start_time': "09:00",
+            'end_time': "17:00"
+        }
+
+        response = client.post(url,data=data)
+
+        assert response.status_code == 201
+        assert models.WorkingTime.objects.filter().exists()
 
 
