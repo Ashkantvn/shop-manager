@@ -55,3 +55,8 @@ class TestUrls(SimpleTestCase):
         url = reverse("app-accounts:update",args=['test-user'])
         view_class = resolve(url).func.view_class
         self.assertEqual(view_class, app_views.AppUserUpdateView)
+
+    def test_app_logout_url_is_resolved(self):
+        url = reverse("app-accounts:logout")
+        view_class = resolve(url).func.view_class
+        self.assertEqual(view_class, app_views.AppLogoutView)

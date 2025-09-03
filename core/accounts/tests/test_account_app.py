@@ -1,5 +1,5 @@
 import pytest
-from accounts.tests.fixtures import authenticated_manager, custom_user
+from accounts.tests.fixtures import authenticated_manager, custom_user,worker
 from django.urls import reverse
 from django.test import Client
 from accounts import models
@@ -57,11 +57,14 @@ class TestAccountApp:
         assert response.status_code == 200
         assert 'accounts/update.html' in [template.name for template in response.templates]
 
-    def test_POST_user_update_view(self,authenticated_manager):
-        
-        client =authenticated_manager
-        url = reverse('app-accounts:update',args=[authenticated_manager.user.user_slug])
+    def test_POST_user_update_view(self,worker):
+        # Make authenticated manager who is same is worker's manager
+        business_manager = worker.business_manager
+        client = Client()
+        client.force_login(business_manager.user)
 
+        url = reverse('app-accounts:update',args=[worker.user.user_slug])
+      
         # Working time data
         data = {
             'start_time': "09:00",
@@ -71,6 +74,21 @@ class TestAccountApp:
         response = client.post(url,data=data)
 
         assert response.status_code == 201
-        assert models.WorkingTime.objects.filter().exists()
+        assert models.WorkingTime.objects.filter(business_worker=worker).exists()
 
+
+    # Test for app logout view
+    def test_app_GET_logout_view(self, authenticated_manager):
+        """
+        Tests that the app logout view logs out the user and redirects to the login page.
+        """
+        client = authenticated_manager
+        url = reverse("app-accounts:logout")
+        response = client.get(url)
+        assert response.status_code == 302
+        assert response.url == reverse("app-accounts:login")
+
+        # Check if the user is logged out
+        response = client.get(reverse("app-accounts:app-profile"))
+        assert response.status_code == 302
 
