@@ -100,4 +100,10 @@ class AppUserUpdateView(View):
 
 # Logout view for the app
 class AppLogoutView(View):
-    pass
+    
+    def get(self, request):
+        """
+        Handle the logout user.
+        """
+        logout(request)
+        return redirect('app-accounts:login')
