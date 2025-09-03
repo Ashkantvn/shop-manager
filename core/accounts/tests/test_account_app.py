@@ -63,7 +63,7 @@ class TestAccountApp:
         client = Client()
         client.force_login(business_manager.user)
 
-        url = reverse('app-accounts:update',args=[authenticated_manager.user.user_slug])
+        url = reverse('app-accounts:update',args=[worker.user.user_slug])
       
         # Working time data
         data = {
@@ -74,6 +74,6 @@ class TestAccountApp:
         response = client.post(url,data=data)
 
         assert response.status_code == 201
-        assert models.WorkingTime.objects.filter().exists()
+        assert models.WorkingTime.objects.filter(business_worker=worker).exists()
 
 
