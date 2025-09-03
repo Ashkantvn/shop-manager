@@ -1,6 +1,6 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import get_user_model ,login
+from django.contrib.auth import get_user_model, login, logout
 from accounts import models
 from http import HTTPStatus
 from datetime import datetime
@@ -98,4 +98,6 @@ class AppUserUpdateView(View):
                 status= HTTPStatus.CREATED
             )
 
-        
+# Logout view for the app
+class AppLogoutView(View):
+    pass
