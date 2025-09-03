@@ -77,3 +77,18 @@ class TestAccountApp:
         assert models.WorkingTime.objects.filter(business_worker=worker).exists()
 
 
+    # Test for app logout view
+    def test_app_GET_logout_view(self, authenticated_manager):
+        """
+        Tests that the app logout view logs out the user and redirects to the login page.
+        """
+        client = authenticated_manager
+        url = reverse("app-accounts:logout")
+        response = client.get(url)
+        assert response.status_code == 302
+        assert response.url == reverse("app-accounts:login")
+
+        # Check if the user is logged out
+        response = client.get(reverse("app-accounts:app-profile"))
+        assert response.status_code == 302
+
