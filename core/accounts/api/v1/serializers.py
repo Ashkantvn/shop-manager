@@ -55,6 +55,8 @@ class WorkingTimeSerializer(serializers.ModelSerializer):
         """
         Create a new working time instance.
         """
+        worker = self.context.get('worker')
+        validated_data['business_worker']= worker
         return WorkingTime.objects.create(**validated_data)
 
 
@@ -62,8 +64,19 @@ class WorkingTimeSerializer(serializers.ModelSerializer):
         """
         Validate that start_time is before end_time.
         """
+        request = self.context.get('request')
+        user = request.user
+        worker = self.context.get('worker')
+
+        # Check start time is not later than end time
         if attrs['start_time'] >= attrs['end_time']:
             raise serializers.ValidationError("Start time must be before end time.")
+        
+        # Check manager and worker's manager are the same
+        manager_of_worker = worker.business_manager
+        if user.username != manager_of_worker.user.username:
+            raise serializers.ValidationError("Current manager and worker's manager are not same")
+        
         return attrs
     
 
@@ -79,7 +92,7 @@ class WorkerForManagerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BusinessWorker
-        fields = ['username','first_name', 'last_name','working_times']
+        fields = ['id','username','first_name', 'last_name','working_times']
 
     def get_username(self, obj):
         username = obj.user.username

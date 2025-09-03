@@ -70,7 +70,7 @@ class UserUpdateView(APIView):
         Only accessible by managers.
         """
         business_worker = get_object_or_404(BusinessWorker, user__user_slug=user_slug)
-        serializer = WorkingTimeSerializer(data=request.data, context={'request': request})
+        serializer = WorkingTimeSerializer(data=request.data, context={'request': request, 'worker': business_worker})
         serializer.is_valid(raise_exception=True)
         serializer.save(business_worker=business_worker)
         return Response(data=serializer.data,status=status.HTTP_201_CREATED)
