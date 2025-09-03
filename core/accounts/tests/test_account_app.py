@@ -1,5 +1,5 @@
 import pytest
-from accounts.tests.fixtures import authenticated_manager, custom_user
+from accounts.tests.fixtures import authenticated_manager, custom_user,worker
 from django.urls import reverse
 from django.test import Client
 from accounts import models
@@ -57,11 +57,14 @@ class TestAccountApp:
         assert response.status_code == 200
         assert 'accounts/update.html' in [template.name for template in response.templates]
 
-    def test_POST_user_update_view(self,authenticated_manager):
-        
-        client =authenticated_manager
-        url = reverse('app-accounts:update',args=[authenticated_manager.user.user_slug])
+    def test_POST_user_update_view(self,worker):
+        # Make authenticated manager who is same is worker's manager
+        business_manager = worker.business_manager
+        client = Client()
+        client.force_login(business_manager.user)
 
+        url = reverse('app-accounts:update',args=[authenticated_manager.user.user_slug])
+      
         # Working time data
         data = {
             'start_time': "09:00",
