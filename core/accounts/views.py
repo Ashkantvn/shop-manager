@@ -1,6 +1,9 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import get_user_model ,login
+from accounts import models
+from http import HTTPStatus
+from datetime import datetime
 
 User = get_user_model()
 
@@ -51,4 +54,48 @@ class AppLoginView(View):
 
 # User update view
 class AppUserUpdateView(View):
-    pass    
+
+    def get(self,request,user_slug):
+        """
+        Render user update page
+        """    
+        return render(request, 'accounts/update.html')
+    
+    def post(self, request, user_slug):
+        """
+        Set working time for workers
+        """
+        user = request.user
+
+        target_worker = get_object_or_404(models.BusinessWorker,user__user_slug=user_slug , business_manager__user__username=user.username)
+        
+        # Validate post data
+        start_time_str = request.POST.get('start_time')
+        end_time_str = request.POST.get('end_time')
+
+        start_time = datetime.strptime(start_time_str, "%H:%M").time()
+        end_time = datetime.strptime(end_time_str, "%H:%M").time()
+
+        if start_time > end_time:
+            return render(
+                request,
+                'accounts/update.html',
+                context={
+                    "error": "Start time cannot be after end time"
+                },
+                status= HTTPStatus.BAD_REQUEST
+            )
+        else:
+            models.WorkingTime.objects.create(
+                start_time = start_time_str,
+                end_time = end_time_str,
+                business_worker = target_worker
+            )
+            return render(
+                request,
+                'accounts/update.html',
+                context={ "data":"Working time created"},
+                status= HTTPStatus.CREATED
+            )
+
+        
