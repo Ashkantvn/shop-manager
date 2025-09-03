@@ -10,13 +10,18 @@ class TestAccountApi:
     
     # Test update account api
     # Manager can set the working time of workers each days
-    def test_POST_update_account_status_201(self,worker , authenticated_manager):
+    def test_POST_update_account_status_201(self,worker):
+        # Make authenticated manager who is same is worker's manager
+        business_manager = worker.business_manager
+        client = APIClient()
+        client.force_authenticate(business_manager.user)
+
         url = reverse("accounts:update", args=[worker.user.user_slug])
         data = {
             "start_time": "09:00",
             "end_time": "17:00",
         }
-        response = authenticated_manager.post(url, data, format='json')
+        response = client.post(url, data, format='json')
         assert response.status_code == status.HTTP_201_CREATED
 
     def test_POST_update_account_status_400(self,worker , authenticated_manager):
