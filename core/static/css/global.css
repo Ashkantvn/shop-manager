@@ -15,15 +15,17 @@ body,html{
 /* buttons */
 button{
     background: none;
+    color: #2C3E50;
+    background-color: #BDC3CF;
     border: none;
-    background-color: #2ecc71;
+    box-shadow: 0 0 3px 3px #2C3E50;
     transition: 300ms;
     border-radius: 6px;
-    padding: 1em;
+    width: 90px;
+    height: 60px;
 }
 button:hover{
-    background-color: #BDC3C7;
-    box-shadow: 0 0 3px 3px #2ecc71;
+    box-shadow: 0 0 3px 3px #232323;
 }
 
 /* a styles */
