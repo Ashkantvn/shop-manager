@@ -122,6 +122,11 @@ input:focus::placeholder {
   opacity: 0;
 }
 
+/* ul and li styles */
+li{
+   list-style-type: none;
+}
+
 /* small screen styles */
 @media screen and (max-width: 600px){
     .layout{

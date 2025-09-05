@@ -1,5 +1,5 @@
 {% for working_time in working_times %}
-        <p>{{working_time.created_date|date:'d M Y'}}: {{working_time.start_time}} - {{working_time.end_time}}</p>
-        {% empty %}
-        <p> No working time founded for this user </p>
+        <li>{{working_time.created_date|date:'d M Y'}}<br/> {{working_time.start_time}} - {{working_time.end_time}}</li>
+        {% empty %}     
+        <li> No working time founded for this user </li>
 {% endfor %}

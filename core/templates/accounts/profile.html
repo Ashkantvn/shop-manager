@@ -17,16 +17,20 @@
 
 {% if profile.manager %}
 
-    <p>{{ profile.manager }}</p>
+    <h1 class="profile-h1">{{ profile.manager }}</h1>
 
     {# Show all workers informations #}
+    <h2 class="profile-h2">Staff</h2>
     {% for worker in profile.workers %}
-        <p>{{worker}}</p>
-
-        {# Show all working times #}
-        <p> {{worker}}'s working times </p>
-        {% include "accounts/partials/show_working_times.html" with working_times=worker.working_times.all %}
-
+        <div class="worker-card">
+            <h3>{{worker}}</h3>
+            
+            {# Show all working times #}
+            <h4> {{worker}}'s working times </h4>
+            <ul>
+                {% include "accounts/partials/show_working_times.html" with working_times=worker.working_times.all %}
+            </ul>
+        </div>
     {% endfor %}
 
 {% endif %}
