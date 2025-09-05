@@ -4,17 +4,33 @@
 
 
 {% block content %}
-<p>{{ profile.business_manager }}</p>
-<p>
-    {% for worker in profile.business_manager_workers %}
+
+{% if profile.worker %}
+
+    <p>{{ profile.worker }}</p>
+
+    {# Show all working times #}
+    {% include "accounts/partials/show_working_times.html" with working_times=profile.working_times %}
+
+    
+{% endif %}
+
+{% if profile.manager %}
+
+    <p>{{ profile.manager }}</p>
+
+    {# Show all workers informations #}
+    {% for worker in profile.workers %}
         <p>{{worker}}</p>
-        {% for working_time in worker.working_times.all %}
-            <p>{{working_time.start_time}}</p>
-            <p>{{working_time.end_time}}</p>
-            <p>{{working_time.created_date}}</p>
-        {% endfor %}
-        {% empty %}
-        <p>no worker found</p>
+
+        {# Show all working times #}
+        <p> {{worker}}'s working times </p>
+        {% include "accounts/partials/show_working_times.html" with working_times=worker.working_times.all %}
+
     {% endfor %}
-</p>
+
+{% endif %}
+
+
+
 {% endblock %}

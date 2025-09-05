@@ -13,22 +13,50 @@ class AppProfileView(View):
     def get(self, request):
 
         user = request.user
-        profile = user
 
-        if hasattr(user , "business_manager"):
+
+        if hasattr(user , "business_manager"): # Set business manager profile
             business_manager = user.business_manager
             business_manager_workers = user.business_manager.workers.all()
-            profile = {
-                "business_manager": business_manager,
-                "business_manager_workers": business_manager_workers
+            business_manager_profile = {
+                "manager": str(business_manager),
+                "workers": business_manager_workers
             }
-        elif hasattr(user, "business_workers"):
-            profile = user.business_workers
-
-
-        return render(request, 'accounts/profile.html',context={'profile':profile})
-    
-
+        
+            return render(
+                request, 
+                'accounts/profile.html',
+                context={
+                    'profile':business_manager_profile,
+                }
+            )
+        
+        elif hasattr(user, "business_workers"):# Set business worker profile
+            worker = user.business_workers
+            working_times = user.business_workers.working_times.all()
+            worker_profile = {
+                "worker": str(worker),
+                "working_times": working_times
+            }
+        
+            return render(
+                request, 
+                'accounts/profile.html',
+                context={
+                    'profile':worker_profile,
+                }
+            )
+        
+        else:
+            return render(
+                request, 
+                'accounts/profile.html',
+                context={
+                    'Error':"Something went wrong.",
+                },
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        
 # Login view for the app
 class AppLoginView(View):
     
@@ -44,12 +72,32 @@ class AppLoginView(View):
         """
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = get_object_or_404(User, username=username)
+        user = User.objects.filter(username=username).first()
+
+        # Check user exist
+        if not user:
+            return render(
+                request,
+                'accounts/login.html',
+                {
+                    "error": 'User does not found.'
+                },
+                status= HTTPStatus.NOT_FOUND
+            )
+        
+        # Check user password
         if user.check_password(password):
             login(request, user)
             return redirect('app-accounts:app-profile')
         else:
-            return render(request, 'accounts/login.html', {'error': 'Password is incorrect'})
+            return render(
+                request, 
+                'accounts/login.html', 
+                {
+                    'error': 'Password is incorrect.'
+                },
+                status=HTTPStatus.BAD_REQUEST
+            )
     
 
 # User update view
@@ -67,7 +115,21 @@ class AppUserUpdateView(View):
         """
         user = request.user
 
-        target_worker = get_object_or_404(models.BusinessWorker,user__user_slug=user_slug , business_manager__user__username=user.username)
+        target_worker = models.BusinessWorker.objects.filter(
+            user__user_slug=user_slug, 
+            business_manager__user__username= user.username,    
+        ).first()
+
+        # Check if worker exist
+        if not target_worker:
+            return render(
+                request,
+                'accounts/login.html',
+                {
+                    "error": 'User does not found.'
+                },
+                status= HTTPStatus.NOT_FOUND
+            )
         
         # Validate post data
         start_time_str = request.POST.get('start_time')

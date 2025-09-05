@@ -7,8 +7,7 @@
 }
 body,html{
     width: 100%;
-    min-height: 100vh;
-    background-color: #BDC3C7;
+    background-color: #BDC3CF;
     color:#2c3e50;
 }
 
@@ -18,14 +17,17 @@ button{
     color: #2C3E50;
     background-color: #BDC3CF;
     border: none;
-    box-shadow: 0 0 3px 3px #2C3E50;
+    box-shadow: 0 0 6px .5px #2C3E50;
+    font-weight: bolder;
+    font-size: 16px;
     transition: 300ms;
-    border-radius: 6px;
+    border-radius: 9px;
     width: 90px;
     height: 60px;
 }
 button:hover{
-    box-shadow: 0 0 3px 3px #232323;
+    cursor: pointer;
+    box-shadow: 0 0 3px 3px #666666;
 }
 
 /* a styles */
@@ -59,15 +61,28 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 9px 9px #000000;
-}
-header,footer{
     background-color: #2c3e50;
-    color: #BDC3C7;
+    color: #BDC3CF;
 }
 
+footer{
+    color: #2C3E50;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 18.5em;
+}
 
 /* notifications */
+.notification{
+    color: #BDC3Cf;
+    border-radius: 9px;
+    width: 45vw;
+    margin-inline: auto;
+    font-size: 14px;
+    padding: 0.3em;
+    margin-block: 1em;
+}
+
 .success{
     background-color: #23cc71;
 }
@@ -80,6 +95,32 @@ header,footer{
     display: none;
 }
 
+/* inputs styles */
+input{
+  background: none;
+  border: none;
+  color: #2C3E50;
+  border-bottom: 1.5px solid #2C3E50;
+  width: 94vw;
+  font-weight: bold;
+  font-size: 16px;
+  padding-bottom: 0.5em;
+  transition: 300ms;
+}
+input:focus{
+  background:none;
+  box-shadow: none;
+  outline: none;
+  border-radius:9px;
+}
+input::placeholder {
+  font-weight: bold;
+  color: #2C3E50;
+  font-size: 16px;
+}
+input:focus::placeholder {
+  opacity: 0;
+}
 
 /* small screen styles */
 @media screen and (max-width: 600px){
@@ -101,12 +142,15 @@ header,footer{
     }
     header{
         left:0;
-        top: auto;
+        top: 0;
         width: clamp(60px, 10vw, 90px);
         height: 100%;
     }
     nav{
         flex-direction: column;
+    }
+    input{
+        width: 60vw;
     }
 }
 
@@ -128,4 +172,3 @@ header,footer{
         display: none;
     }
 }
-
