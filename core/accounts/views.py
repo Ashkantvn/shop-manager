@@ -13,22 +13,50 @@ class AppProfileView(View):
     def get(self, request):
 
         user = request.user
-        profile = user
 
-        if hasattr(user , "business_manager"):
+
+        if hasattr(user , "business_manager"): # Set business manager profile
             business_manager = user.business_manager
             business_manager_workers = user.business_manager.workers.all()
-            profile = {
-                "business_manager": business_manager,
-                "business_manager_workers": business_manager_workers
+            business_manager_profile = {
+                "manager": str(business_manager),
+                "workers": business_manager_workers
             }
-        elif hasattr(user, "business_workers"):
-            profile = user.business_workers
-
-
-        return render(request, 'accounts/profile.html',context={'profile':profile})
-    
-
+        
+            return render(
+                request, 
+                'accounts/profile.html',
+                context={
+                    'profile':business_manager_profile,
+                }
+            )
+        
+        elif hasattr(user, "business_workers"):# Set business worker profile
+            worker = user.business_workers
+            working_times = user.business_workers.working_times.all()
+            worker_profile = {
+                "worker": str(worker),
+                "working_times": working_times
+            }
+        
+            return render(
+                request, 
+                'accounts/profile.html',
+                context={
+                    'profile':worker_profile,
+                }
+            )
+        
+        else:
+            return render(
+                request, 
+                'accounts/profile.html',
+                context={
+                    'Error':"Something went wrong.",
+                },
+                status=HTTPStatus.BAD_REQUEST,
+            )
+        
 # Login view for the app
 class AppLoginView(View):
     
