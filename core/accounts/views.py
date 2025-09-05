@@ -44,12 +44,32 @@ class AppLoginView(View):
         """
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = get_object_or_404(User, username=username)
+        user = User.objects.filter(username=username).first()
+
+        # Check user exist
+        if not user:
+            return render(
+                request,
+                'accounts/login.html',
+                {
+                    "error": 'User does not found.'
+                },
+                status= HTTPStatus.NOT_FOUND
+            )
+        
+        # Check user password
         if user.check_password(password):
             login(request, user)
             return redirect('app-accounts:app-profile')
         else:
-            return render(request, 'accounts/login.html', {'error': 'Password is incorrect'})
+            return render(
+                request, 
+                'accounts/login.html', 
+                {
+                    'error': 'Password is incorrect.'
+                },
+                status=HTTPStatus.BAD_REQUEST
+            )
     
 
 # User update view
@@ -67,7 +87,21 @@ class AppUserUpdateView(View):
         """
         user = request.user
 
-        target_worker = get_object_or_404(models.BusinessWorker,user__user_slug=user_slug , business_manager__user__username=user.username)
+        target_worker = models.BusinessWorker.objects.filter(
+            user__user_slug=user_slug, 
+            business_manager__user__username= user.username,    
+        ).first()
+
+        # Check if worker exist
+        if not target_worker:
+            return render(
+                request,
+                'accounts/login.html',
+                {
+                    "error": 'User does not found.'
+                },
+                status= HTTPStatus.NOT_FOUND
+            )
         
         # Validate post data
         start_time_str = request.POST.get('start_time')
