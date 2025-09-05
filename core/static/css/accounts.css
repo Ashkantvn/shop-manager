@@ -19,3 +19,9 @@ form{
 .login-submit{
   margin-top: 1.8em;
 }
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  form{
+    margin-top:9rem;
+  }
+}
