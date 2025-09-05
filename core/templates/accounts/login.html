@@ -6,12 +6,17 @@ Login page
 {% endblock title %}
 
 {% block content %}
+{% if error %}
+<h1 class='notification alert'>
+{{error}}
+</h1>
+{% endif %}
 <form method='post'>
     {% csrf_token %}
     <h1 class='login-header'>Welcome back</h1>
     <div class='inputs-group'>
-        <input placeholder="Enter Username"/>
-        <input placeholder= "Enter Password"/>
+        <input name="username" placeholder="Enter Username"/>
+        <input name="password" type="password" placeholder= "Enter Password"/>
     </div>
     <button class='login-submit' type='submit'>Login</button>
 </form>

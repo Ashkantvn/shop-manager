@@ -73,6 +73,16 @@ footer{
 }
 
 /* notifications */
+.notification{
+    color: #BDC3Cf;
+    border-radius: 9px;
+    width: 45vw;
+    margin-inline: auto;
+    font-size: 14px;
+    padding: 0.3em;
+    margin-block: 1em;
+}
+
 .success{
     background-color: #23cc71;
 }
