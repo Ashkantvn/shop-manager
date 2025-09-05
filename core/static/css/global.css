@@ -7,7 +7,6 @@
 }
 body,html{
     width: 100%;
-    min-height: 100vh;
     background-color: #BDC3CF;
     color:#2c3e50;
 }
