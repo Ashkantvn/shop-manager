@@ -1,0 +1,21 @@
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:3em;
+  margin-block: 2.5em;
+}
+.inputs-group{
+  display: flex;
+  flex-direction: column;
+  gap:3.2em;
+  margin-top:2.1em;
+}
+.login-header{
+  font-weight: bold;
+  font-size: 36px;
+}
+.login-submit{
+  margin-top: 1.8em;
+}
