@@ -81,6 +81,7 @@ footer{
     font-size: 14px;
     padding: 0.3em;
     margin-block: 1em;
+    color:#2C3E50;
 }
 
 .success{
@@ -120,6 +121,11 @@ input::placeholder {
 }
 input:focus::placeholder {
   opacity: 0;
+}
+
+/* ul and li styles */
+li{
+   list-style-type: none;
 }
 
 /* small screen styles */
