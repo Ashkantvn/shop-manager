@@ -1,18 +1,24 @@
 {% extends "accounts/account-layout.html" %}
 {% load static %}
 
-
+{% block title %}
+{% if profile.worker %}
+{{profile.worker}}
+{% else %}
+{{profile.manager}}
+{% endif %}
+{% endblock title %}
 
 {% block content %}
 
     {% if profile.worker %}
+            <h1 class="profile-h1">{{ profile.worker }}</h1>
 
-        <h1 class="profile-h1">{{ profile.worker }}</h1>
-
-        {# Show all working times #}
-        <h4 class="profile-h4"> {{profile.worker}}'s working times </h4>
-        {% include "accounts/partials/show_working_times.html" with working_times=profile.working_times %}
-        
+            {# Show all working times #}
+            <h2 class="profile-h2"> {{profile.worker}}'s working times </h2>
+            <ul class="profile-grid profile-worker-working-time-list">
+                {% include "accounts/partials/show_working_times.html" with working_times=profile.working_times %}
+            </ul>
     {% endif %}
 
     {% if profile.manager %}
@@ -20,7 +26,7 @@
         <h1 class="profile-h1">{{ profile.manager }}</h1>
 
         {# Show all workers informations #}
-        <h2 class="profile-h2">Staff</h2>
+        <h4 class="profile-h4">Staff</h4>
         <div class="profile-workers-list">
             {% for worker in profile.workers %}
             <div class="worker-card">
@@ -28,7 +34,9 @@
                 
                 {# Show all working times #}
                 <h4 class="profile-h4"> {{worker}}'s working times </h4>
-                {% include "accounts/partials/show_working_times.html" with working_times=worker.working_times.all %}
+                <ul class="profile-grid profile-manager-working-time-list">
+                    {% include "accounts/partials/show_working_times.html" with working_times=worker.working_times.all %}
+                </ul>
             </div>
             {% endfor %}
         </div>

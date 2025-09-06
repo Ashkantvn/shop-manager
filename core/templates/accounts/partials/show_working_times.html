@@ -1,7 +1,20 @@
-<ul class="profile-grid">
-        {% for working_time in working_times %}
-                <li class="profile-li-card">{{working_time.created_date|date:'d M Y'}}<br/> {{working_time.start_time}} - {{working_time.end_time}}</li>
-                {% empty %}     
-                <li class="profile-li-card"> No work schedule is available for this user. </li>
-        {% endfor %}
-</ul>
+{% for working_time in working_times %}
+        <li class="profile-li-card">{{working_time.created_date|date:'d M Y'}}<br/> {{working_time.start_time}} - {{working_time.end_time}}</li>
+        {% empty %}     
+        <li class="profile-li-card"> No work schedule is available for this user. </li>
+{% endfor %}
+{% for working_time in working_times %}
+        <li class="profile-li-card">{{working_time.created_date|date:'d M Y'}}<br/> {{working_time.start_time}} - {{working_time.end_time}}</li>
+        {% empty %}     
+        <li class="profile-li-card"> No work schedule is available for this user. </li>
+{% endfor %}
+{% for working_time in working_times %}
+        <li class="profile-li-card">{{working_time.created_date|date:'d M Y'}}<br/> {{working_time.start_time}} - {{working_time.end_time}}</li>
+        {% empty %}     
+        <li class="profile-li-card"> No work schedule is available for this user. </li>
+{% endfor %}
+{% for working_time in working_times %}
+        <li class="profile-li-card">{{working_time.created_date|date:'d M Y'}}<br/> {{working_time.start_time}} - {{working_time.end_time}}</li>
+        {% empty %}     
+        <li class="profile-li-card"> No work schedule is available for this user. </li>
+{% endfor %}
