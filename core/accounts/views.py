@@ -107,7 +107,23 @@ class AppUserUpdateView(View):
         """
         Render user update page
         """    
-        return render(request, 'accounts/update.html')
+        target_user = User.objects.filter(user_slug=user_slug).first()
+
+        if not target_user:
+            return render(
+                request,
+                'accounts/update.html',
+                {
+                    "error":"User not found."
+                }
+            )
+        return render(
+            request,
+            'accounts/update.html',
+            {
+                'target_user':str(target_user)
+            }
+        )
     
     def post(self, request, user_slug):
         """
@@ -126,7 +142,7 @@ class AppUserUpdateView(View):
                 request,
                 'accounts/login.html',
                 {
-                    "error": 'User does not found.'
+                    "error": 'User not found.'
                 },
                 status= HTTPStatus.NOT_FOUND
             )

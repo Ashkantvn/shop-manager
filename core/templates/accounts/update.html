@@ -1,1 +1,32 @@
 {% extends "accounts/account-layout.html" %}
+
+{% block title %}
+User update page
+{% endblock title %}
+
+
+{% block content %}
+    {% if error %}
+        <h1 class='notification alert'>
+        {{error}}
+        </h1>
+    {% elif data %}
+        <h1 class='notification alert'>
+        {{data}}
+        </h1>
+    {% else %}
+    <form method='post'>
+        {% csrf_token %}
+        <h1 class='account-header'>New working time for {{target_user}}</h1>
+        <div class='inputs-group'>
+
+            <label for="start_time">Enter Start Time</label>
+            <input type="time" id="start_time" name="start_time" required />
+            
+            <label for="end_time">Enter End Time</label>
+            <input type="time" id="end_time" name="end_time" required />
+        </div>
+        <button class='account-submit' type='submit'>Add</button>
+    </form>
+    {% endif %}
+{% endblock content %}

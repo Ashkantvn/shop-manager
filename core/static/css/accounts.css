@@ -12,11 +12,11 @@ form{
   gap:3.2em;
   margin-top:2.1em;
 }
-.login-header{
+.account-header{
   font-weight: bold;
   font-size: 36px;
 }
-.login-submit{
+.account-submit{
   margin-top: 1.8em;
 }
 
