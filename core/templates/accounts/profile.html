@@ -10,6 +10,7 @@
         <h1 class="profile-h1">{{ profile.worker }}</h1>
 
         {# Show all working times #}
+        <h4 class="profile-h4"> {{profile.worker}}'s working times </h4>
         {% include "accounts/partials/show_working_times.html" with working_times=profile.working_times %}
         
     {% endif %}
@@ -26,6 +27,7 @@
                 <h3 class="profile-h3">{{worker}}</h3>
                 
                 {# Show all working times #}
+                <h4 class="profile-h4"> {{worker}}'s working times </h4>
                 {% include "accounts/partials/show_working_times.html" with working_times=worker.working_times.all %}
             </div>
             {% endfor %}

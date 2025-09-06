@@ -1,4 +1,3 @@
-<h4 class="profile-h4"> {{worker}}'s working times </h4>
 <ul class="profile-grid">
         {% for working_time in working_times %}
                 <li class="profile-li-card">{{working_time.created_date|date:'d M Y'}}<br/> {{working_time.start_time}} - {{working_time.end_time}}</li>
