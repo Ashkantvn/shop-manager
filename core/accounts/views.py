@@ -1,5 +1,5 @@
 from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, login, logout
 from accounts import models
 from http import HTTPStatus
