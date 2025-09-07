@@ -5,8 +5,10 @@ from accounts.api.v1.views import (
     UserUpdateView,
     UserProfileView
 )
-from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
-
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+    TokenObtainPairView
+)
 # App views
 from accounts import views as app_views
 
@@ -22,23 +24,22 @@ class TestUrls(SimpleTestCase):
     def test_user_login_url_is_resolved(self):
         url = reverse("accounts:login")
         view_class = resolve(url).func.view_class
-        self.assertEqual( view_class , TokenObtainPairView)
+        self.assertEqual(view_class, TokenObtainPairView)
 
     def test_user_logout_url_is_resolved(self):
         url = reverse("accounts:logout")
         view_class = resolve(url).func.view_class
-        self.assertEqual( view_class , UserLogoutView)
+        self.assertEqual(view_class, UserLogoutView)
 
     def test_user_update_url_is_resolved(self):
-        url = reverse("accounts:update",args=["testuser"])
+        url = reverse("accounts:update", args=["testuser"])
         view_class = resolve(url).func.view_class
-        self.assertEqual( view_class , UserUpdateView)
+        self.assertEqual(view_class, UserUpdateView)
 
     def test_token_refresh_url_is_resolved(self):
         url = reverse("accounts:refresh_token")
         view_class = resolve(url).func.view_class
-        self.assertEqual( view_class , TokenRefreshView)
-
+        self.assertEqual(view_class, TokenRefreshView)
 
     # Test for the app URLs
     def test_app_profile_url_is_resolved(self):
@@ -52,7 +53,7 @@ class TestUrls(SimpleTestCase):
         self.assertEqual(view_class, app_views.AppLoginView)
 
     def test_app_update_url_is_resolved(self):
-        url = reverse("app-accounts:update",args=['test-user'])
+        url = reverse("app-accounts:update", args=["test-user"])
         view_class = resolve(url).func.view_class
         self.assertEqual(view_class, app_views.AppUserUpdateView)
 
