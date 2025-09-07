@@ -3,9 +3,9 @@ from django.db import models
 
 class BusinessManager(models.Model):
     user = models.OneToOneField(
-        'accounts.CustomUser',
+        "accounts.CustomUser",
         on_delete=models.CASCADE,
-        related_name='business_manager'
+        related_name="business_manager"
     )
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

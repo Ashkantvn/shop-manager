@@ -39,6 +39,9 @@ a{
     display: flex;
     justify-content: center;
 }
+a:hover{
+    cursor: pointer;
+}
 
 /* nav styles */
 nav{

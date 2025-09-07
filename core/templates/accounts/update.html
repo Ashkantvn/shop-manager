@@ -11,22 +11,22 @@ User update page
         {{error}}
         </h1>
     {% elif data %}
-        <h1 class='notification alert'>
+        <h1 class='notification success'>
         {{data}}
         </h1>
     {% else %}
     <form method='post'>
         {% csrf_token %}
-        <h1 class='account-header'>New working time for {{target_user}}</h1>
-        <div class='inputs-group'>
+        <h1 class='user-update-account-header'>New working time for {{target_user}}</h1>
+        <div class='inputs-group user-update-inputs-group'>
 
-            <label for="start_time">Enter Start Time</label>
+            <label class="account-label" for="start_time">Enter Start Time</label>
             <input type="time" id="start_time" name="start_time" required />
             
-            <label for="end_time">Enter End Time</label>
+            <label class="account-label" for="end_time">Enter End Time</label>
             <input type="time" id="end_time" name="end_time" required />
         </div>
-        <button class='account-submit' type='submit'>Add</button>
+        <button class='account-submit user-update-submit-button' type='submit'>Add</button>
     </form>
     {% endif %}
 {% endblock content %}
