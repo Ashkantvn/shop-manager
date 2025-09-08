@@ -28,7 +28,7 @@ urlpatterns = [
     path("api/v1/accounts/", include("accounts.api.v1.urls")),
     path("accounts/", include("accounts.urls")),
     # Products URLs
-    path("api/v1/products/", include("products.api.v1.urls"))
+    path("api/v1/products/", include("products.api.v1.urls")),
 ]
 
 
