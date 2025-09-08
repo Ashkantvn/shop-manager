@@ -13,6 +13,7 @@
 
     {% if profile.worker %}
             <h1 class="profile-h1">{{ profile.worker }}</h1>
+            <a class="profile-h3" href='{% url "app-accounts:logout" %}'> Logout </a>
 
             {# Show all working times #}
             <h2 class="profile-h2"> {{profile.worker}}'s working times </h2>
