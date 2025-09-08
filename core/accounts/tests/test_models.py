@@ -56,9 +56,9 @@ class TestAccountsModels:
 
     def test_working_time_str_method(self, working_time):
         assert str(working_time) == (
-            f"{self.start_time} - {self.end_time} for "
-            f"{self.business_worker.user.first_name} "
-            f"{self.business_worker.user.last_name}"
+            f"{working_time.start_time} - {working_time.end_time} for "
+            f"{working_time.business_worker.user.first_name} "
+            f"{working_time.business_worker.user.last_name}"
         )
 
     # test business manager model
