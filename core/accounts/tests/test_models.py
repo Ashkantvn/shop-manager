@@ -1,9 +1,6 @@
 import pytest
 from accounts import models
 from accounts.tests.fixtures import (
-    custom_user,
-    worker,
-    manager,
     working_time,
     blacklist_access_token,
 )

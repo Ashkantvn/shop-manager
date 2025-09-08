@@ -1,5 +1,4 @@
 import pytest
-from accounts.tests.fixtures import authenticated_manager, custom_user, worker
 from django.urls import reverse
 from django.test import Client
 from accounts import models
