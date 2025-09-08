@@ -8,5 +8,5 @@ class TestProductAPI:
     def test_products_list_status_200(self, authenticated_worker):
         client = authenticated_worker
         url = reverse("api-products:list")
-        client.get(url)
-        assert client.status_code == 200
+        response = client.get(url)
+        assert response.status_code == 200

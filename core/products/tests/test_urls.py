@@ -8,4 +8,4 @@ class TestProductUrls:
     def test_products_list_url_is_resolved(self):
         url = reverse("api-products:list")
         view_class = resolve(url).func.view_class
-        assert view_class == views.ProductList
+        assert view_class == views.ProductListAPI
