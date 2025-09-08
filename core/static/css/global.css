@@ -31,13 +31,18 @@ button:hover{
 }
 
 /* a styles */
-a{
-    text-decoration: none;
+nav>a{
     color:#BDC3CF;
     width: 48px;
     font-size: 48px;
     display: flex;
     justify-content: center;
+}
+a{
+    font-weight: bold;
+    display: inline-block;
+    color:#2C3E50;
+    text-decoration: none;
 }
 a:hover{
     cursor: pointer;
