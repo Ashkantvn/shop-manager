@@ -5,5 +5,5 @@ app_name = "template-products"
 
 
 urlpatterns = [
-    path()
+    path("list/", ProductList.as_view(),name="list"),
 ]

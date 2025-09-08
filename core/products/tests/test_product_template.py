@@ -11,3 +11,4 @@ class TestProductTemplate:
         url = reverse("template-products:list")
         response = client.get(url)
         assert response.status_code == 200
+        assert "products/list.html" in [template.name for template in response.templates]
