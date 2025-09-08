@@ -23,20 +23,20 @@ class TestProductsModels:
     # Check models fields
     def test_supplier_model_fields(self, supplier):
         assert supplier.supplier_name == "Test supplier"
-        assert supplier.email is None
+        assert supplier.email == ""
         assert supplier.phone == "09865498765"
 
     def test_catrgory_model_fields(self, category):
-        assert category.category_name == "Test category1"
+        assert category.category_name == "Test category"
         assert category.description == "Test description"
 
     def test_product_model_fields(self, product):
         assert product.product_name == "Test product"
-        assert isinstance(product.category, models.Category)
+        assert isinstance(product.category.all()[0], models.Category)
         assert product.brand == "Brand name"
         assert product.quantity == 135.6
         assert product.expire_date == date(2025,1,3)
-        assert isinstance(product.supplier, models.Product)
+        assert isinstance(product.supplier, models.Supplier)
         assert product.location == "Location"
 
     # Check str method
