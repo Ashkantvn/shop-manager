@@ -1,0 +1,14 @@
+{% extends "products/product_layout.html" %}
+
+{% block title %}
+    Product List
+{% endblock title %}
+
+
+
+{% block content %}
+    <h2>Product list</h2>
+    <ul>
+        {% include "products/partial/product_card.html" with products=products %}
+    </ul>
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% for product in products %}
+        <li>
+            <h3>{{product.product_name}}<h3>
+            <h3>{{product.brand}}<h3>
+            <h4>{{product.quantity}}<h4>
+            <h4>$ {{product.price}}<h4>
+            <h4>{{product.expire_date|date:"d M Y"}}<h4>
+        </li>
+        {% empty %}
+        <li>No product found.</li>
+{% endfor %}

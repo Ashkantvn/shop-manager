@@ -1,14 +1,8 @@
 import pytest
 from django.urls import reverse
-from accounts.api.v1.views import UserUpdateView
 from rest_framework import status
 from rest_framework.test import APIClient
-from accounts.tests.fixtures import (
-    authenticated_manager,
-    authenticated_worker,
-    worker,
-    manager,
-)
+
 
 
 @pytest.mark.django_db

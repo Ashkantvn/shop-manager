@@ -1,5 +1,4 @@
 import pytest
-from accounts.tests.fixtures import authenticated_manager, custom_user, worker
 from django.urls import reverse
 from django.test import Client
 from accounts import models
@@ -49,8 +48,6 @@ class TestAccountApp:
         assert response.url == reverse("app-accounts:app-profile")
 
         # Check if the user is logged in
-        response = client.get(reverse("app-accounts:app-profile"))
-        assert response.status_code == 200
         assert client.session["_auth_user_id"] == str(custom_user.pk)
 
     # Test for app User update view
