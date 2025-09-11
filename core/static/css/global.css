@@ -32,15 +32,14 @@ button:hover{
 
 /* a styles */
 nav>a{
+    min-width: 48px;
+    height: 48px;
     color:#BDC3CF;
-    width: 48px;
-    font-size: 48px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 a{
-    font-weight: bold;
-    display: inline-block;
     color:#2C3E50;
     text-decoration: none;
 }
@@ -57,11 +56,6 @@ nav{
     align-items: center;
 }
 
-/* svg styles */
-svg{
-    fill: #BCD3CF;
-    width: 48px;
-}
 
 /* header and footer */
 header{
