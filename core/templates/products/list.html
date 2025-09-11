@@ -7,8 +7,8 @@
 
 
 {% block content %}
-    <h2>Product list</h2>
-    <ul>
+    <h2 class="product-list-h2">Product list</h2>
+    <ul class="product-list-ul">
         {% include "products/partial/product_card.html" with products=products %}
     </ul>
 {% endblock content %}

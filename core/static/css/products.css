@@ -1,0 +1,24 @@
+/* product list */
+.product-list-ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 1.5em 0;
+    width: 86vw;
+    margin-inline: auto;
+}
+.product-list-h2{
+    margin: 0.5em 0 1.6em 0;
+}
+.product-card{
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em 0;
+    padding: 0.7em;
+    border-radius: 9px;
+    box-shadow: 0 0 9px 1px #232323;
+    width: 35vw;
+}
+.product-card-info{
+    font-size: 18px;
+}

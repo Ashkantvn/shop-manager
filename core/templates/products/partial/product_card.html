@@ -1,10 +1,43 @@
 {% for product in products %}
-        <li>
-            <h3>{{product.product_name}}<h3>
-            <h3>{{product.brand}}<h3>
-            <h4>{{product.quantity}}<h4>
-            <h4>$ {{product.price}}<h4>
-            <h4>{{product.expire_date|date:"d M Y"}}<h4>
+        <li class="product-card">
+            <h3 class="product-card-info">{{product.product_name}}<h3>
+            <h3 class="product-card-info">{{product.brand}}<h3>
+            <h4 class="product-card-info">{{product.quantity}}<h4>
+            <h4 class="product-card-info">$ {{product.price}}<h4>
+            <h4 class="product-card-info">{{product.expire_date|date:"d M Y"}}<h4>
+        </li>
+        {% empty %}
+        <li>No product found.</li>
+{% endfor %}
+{% for product in products %}
+        <li class="product-card">
+            <h3 class="product-card-info">{{product.product_name}}<h3>
+            <h3 class="product-card-info">{{product.brand}}<h3>
+            <h4 class="product-card-info">{{product.quantity}}<h4>
+            <h4 class="product-card-info">$ {{product.price}}<h4>
+            <h4 class="product-card-info">{{product.expire_date|date:"d M Y"}}<h4>
+        </li>
+        {% empty %}
+        <li>No product found.</li>
+{% endfor %}
+{% for product in products %}
+        <li class="product-card">
+            <h3 class="product-card-info">{{product.product_name}}<h3>
+            <h3 class="product-card-info">{{product.brand}}<h3>
+            <h4 class="product-card-info">{{product.quantity}}<h4>
+            <h4 class="product-card-info">$ {{product.price}}<h4>
+            <h4 class="product-card-info">{{product.expire_date|date:"d M Y"}}<h4>
+        </li>
+        {% empty %}
+        <li>No product found.</li>
+{% endfor %}
+{% for product in products %}
+        <li class="product-card">
+            <h3 class="product-card-info">{{product.product_name}}<h3>
+            <h3 class="product-card-info">{{product.brand}}<h3>
+            <h4 class="product-card-info">{{product.quantity}}<h4>
+            <h4 class="product-card-info">$ {{product.price}}<h4>
+            <h4 class="product-card-info">{{product.expire_date|date:"d M Y"}}<h4>
         </li>
         {% empty %}
         <li>No product found.</li>
