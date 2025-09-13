@@ -32,15 +32,15 @@ button:hover{
 
 /* a styles */
 nav>a{
+    min-width: 48px;
+    height: 48px;
+    font-size: 66px;
     color:#BDC3CF;
-    width: 48px;
-    font-size: 48px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 a{
-    font-weight: bold;
-    display: inline-block;
     color:#2C3E50;
     text-decoration: none;
 }
@@ -57,11 +57,6 @@ nav{
     align-items: center;
 }
 
-/* svg styles */
-svg{
-    fill: #BCD3CF;
-    width: 48px;
-}
 
 /* header and footer */
 header{
@@ -77,7 +72,7 @@ footer{
     color: #2C3E50;
     font-size: 12px;
     font-weight: bold;
-    margin-top: 18.5em;
+    margin-top: 3em;
 }
 
 /* notifications */
@@ -153,6 +148,7 @@ li{
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .layout{
         margin-left:clamp(60px, 10vw, 90px);
+        margin-bottom: 1.5em;
     }
     header{
         left:0;
@@ -172,6 +168,7 @@ li{
 @media screen and (min-width: 900px){
     .layout{
         margin-top:clamp(140px, 25vh, 200px);
+        margin-bottom: 1.5em;
     }
     header{
         top: 0;
