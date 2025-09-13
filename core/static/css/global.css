@@ -148,6 +148,7 @@ li{
 @media screen and (min-width: 600px) and (max-width: 900px) {
     .layout{
         margin-left:clamp(60px, 10vw, 90px);
+        margin-bottom: 1.5em;
     }
     header{
         left:0;
@@ -167,6 +168,7 @@ li{
 @media screen and (min-width: 900px){
     .layout{
         margin-top:clamp(140px, 25vh, 200px);
+        margin-bottom: 1.5em;
     }
     header{
         top: 0;
