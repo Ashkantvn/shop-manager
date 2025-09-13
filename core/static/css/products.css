@@ -37,3 +37,16 @@
         height: 24.4vh;
     }
 }
+
+@media screen and (min-width: 900px){
+    .product-list-h2{
+        margin: 1em 0 2.5em;
+    }
+    .product-list-ul{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .product-card{
+        width: 23.4vw;
+        height: 27.7vh;
+    }
+}
