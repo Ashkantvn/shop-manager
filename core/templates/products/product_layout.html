@@ -6,8 +6,16 @@
 {% endblock link %}
 
 
+{% block special_text %}
+<a class="special_text" href="{% url 'template-products:list' %}">
+    <span>PRODUCTS</span>
+</a>
+{% endblock special_text %}
+
+
+
 {% block special_icon %}
-<a href="{% url 'template-products:list' %}">
+<a class="special_icon" href="{% url 'template-products:list' %}">
     <svg width="48" height="48" viewBox="0 0 100 80">
             <!-- Bullet 1 -->
             <circle cx="15" cy="20" r="5" fill="#BDC3CF" />
