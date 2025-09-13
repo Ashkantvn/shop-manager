@@ -48,5 +48,6 @@
     .product-card{
         width: 23.4vw;
         height: 27.7vh;
+        gap: 1em 0;
     }
 }
