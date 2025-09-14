@@ -14,3 +14,6 @@ class ProductList(View):
                 "products":products_list
             }
         )
+    
+class ProductRetrieve(View):
+    pass
