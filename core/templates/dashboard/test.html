@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block script %}
+<script>
+  const socket = new WebSocket("ws://localhost:8000/ws/notifications/");
+  socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    alert(data.message);
+  };
+</script>
+{% endblock script %}
