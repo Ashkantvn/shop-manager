@@ -1,1 +1,55 @@
 {% extends "products/product_layout.html" %}
+
+
+{% block title %}
+{% if error %}
+    {{error}}
+{% else %}
+    {{product}}
+{% endif %}
+{% endblock title %}
+
+
+{% block content %}
+{% if error %}
+    <h2 class="notification alert">{{error}}</h2>
+{% else %}
+    <div class="product-retrieve-card">
+        <h2>Product name</h2>
+        <h3 class="product-retrieve-h3">{{product.product_name}}</h3>
+
+        <h2>Product brand</h2>
+        <h3 class="product-retrieve-h3">{{product.brand}}</h3>
+
+        <h2>Categories</h2>
+        {% for category in product.category.all %}
+            <h3 class="product-retrieve-h3">{{category.category_name}}
+            {% empty %}
+            <h3 class="product-retrieve-h3">This category is empty.</h3>
+        {% endfor %}
+
+        <h2>Quantity</h2>
+        <h3 class="product-retrieve-h3">{{product.quantity}}</h3>
+
+        <h2>Price</h2>
+        <h3 class="product-retrieve-h3">${{product.price}}</h3>
+
+        <h2>Cost price</h2>
+        <h3 class="product-retrieve-h3">${{product.cost_price}}</h3>
+        
+        <h2>Supplier</h2>
+        <div class="product-retrieve-div">
+            <h3 class="product-retrieve-h3">{{product.supplier.supplier_name}}</h3>
+            <h3 class="product-retrieve-h3">{{product.supplier.phone}}</h3>
+            <h3 class="product-retrieve-h3 supplier-email">{{product.supplier.email}}</h3>
+        </div>
+
+        <h2>Expire date</h2>
+        <h3 class="product-retrieve-h3">{{product.expire_date|date:"d F Y"}}</h3>
+
+        <h2>Location</h2>
+        <h3 class="product-retrieve-h3">{{product.location}}</h3>
+    </div>
+{% endif %}
+{% endblock content %}
+
