@@ -1,10 +1,12 @@
 {% for product in products %}
         <li class="product-card">
-            <h3 class="product-card-info">{{product.product_name}}<h3>
-            <h3 class="product-card-info">{{product.brand}}<h3>
-            <h4 class="product-card-info">{{product.quantity}}<h4>
-            <h4 class="product-card-info">$ {{product.price}}<h4>
-            <h4 class="product-card-info">{{product.expire_date|date:"d M Y"}}<h4>
+            <a class="product-link" href="{% url 'template-products:retrieve' product.product_slug %}">
+                <h3 class="product-card-info">{{product.product_name}}<h3>
+                <h3 class="product-card-info">{{product.brand}}<h3>
+                <h4 class="product-card-info">{{product.quantity}}<h4>
+                <h4 class="product-card-info">$ {{product.price}}<h4>
+                <h4 class="product-card-info">{{product.expire_date|date:"d M Y"}}<h4>
+            </a>
         </li>
         {% empty %}
         <li>No product found.</li>
