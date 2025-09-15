@@ -16,3 +16,14 @@ class TestProductUrls:
         url = reverse("template-products:list")
         view_class = resolve(url).func.view_class
         assert view_class == TemplateViews.ProductList
+
+    # Product retrieve URL tests
+    def test_product_retrieve_url_is_resolved(self):
+        url = reverse("api-products:retrieve",args=["product-slug"])
+        view_class = resolve(url).func.view_class
+        assert view_class == views.ProductRetrieveAPI
+
+    def test_template_product_retrieve_url_is_resolved(self):
+        url = reverse("template-products:retrieve", args=["product-slug"])
+        view_class = resolve(url).func.view_class
+        assert view_class == TemplateViews.ProductRetrieve
