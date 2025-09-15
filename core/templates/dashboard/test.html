@@ -2,10 +2,26 @@
 
 {% block script %}
 <script>
-  const socket = new WebSocket("ws://localhost:8000/ws/notifications/");
-  socket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
-    alert(data.message);
+  const socket = new WebSocket("ws://localhost:8000/ws/products/");
+
+  socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    if (data.type === "updated") {
+      console.log(data);
+      
+      console.log("Product updated:", data.product);
+      console.log("Changes:", data.changes);
+    } else if (data.type === "created") {
+      console.log("New product created:", data.message);
+    }
+  };
+
+  socket.onopen = function() {
+    console.log("WebSocket connection established");
+  };
+
+  socket.onclose = function() {
+    console.log("WebSocket connection closed");
   };
 </script>
 {% endblock script %}

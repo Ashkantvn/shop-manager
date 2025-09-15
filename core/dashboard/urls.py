@@ -1,8 +1,8 @@
 from django.urls import path
-from dashboard.views import Test
+from dashboard.views import ProductsDashboard
 
 app_name= "dashboard"
 
 urlpatterns = [
-    path("", Test.as_view(), name="test")
+    path("products/", ProductsDashboard.as_view(), name="products-dashboard"),
 ]
