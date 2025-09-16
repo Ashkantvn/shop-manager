@@ -10,21 +10,20 @@ def product_created(sender, instance, created, **kwargs):
     if created:
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            "dashboard",
-            {
+            "dashboard", {
                 "type": "product_created",
                 "message": f"{instance} created"
             }
         )
 
+
 @receiver(pre_save, sender=Product)
 def product_updated(sender, instance, **kwargs):
-    
+
     try:
         old_instance = sender.objects.get(pk=instance.pk)
     except sender.DoesNotExist:
         return
-    
 
     changes = {}
     for field in instance._meta.fields:
@@ -40,10 +39,10 @@ def product_updated(sender, instance, **kwargs):
     if changes:
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            'dashboard',
+            "dashboard",
             {
-                'type': "product_updated",
-                'product': str(instance),
+                "type": "product_updated",
+                "product": str(instance),
                 "message": changes
-            }
+            },
         )

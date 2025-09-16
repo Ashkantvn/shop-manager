@@ -15,8 +15,10 @@ class LoginRequiredMiddleware:
 
     def __call__(self, request):
         # Allow access static files
-        if (request.path.startswith("/static/") or
-                request.path.startswith("/media/")):
+        if (
+            request.path.startswith("/static/") or
+            request.path.startswith("/media/")
+        ):
             return self.get_response(request)
 
         # Skip force authentication of api and django template login page

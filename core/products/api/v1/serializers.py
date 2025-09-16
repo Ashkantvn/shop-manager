@@ -6,7 +6,15 @@ class ProductListSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["id","product_name","brand","quantity", "price", "expire_date"]
+        fields = [
+            "id",
+            "product_name",
+            "brand",
+            "quantity",
+            "price",
+            "expire_date"
+        ]
+
 
 class ProductRetrieveSerializer(ModelSerializer):
 
@@ -15,23 +23,30 @@ class ProductRetrieveSerializer(ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id','product_name','brand','category','quantity','cost_price','supplier','expire_date','location',]
+        fields = [
+            "id",
+            "product_name",
+            "brand",
+            "category",
+            "quantity",
+            "cost_price",
+            "supplier",
+            "expire_date",
+            "location",
+        ]
 
-    def get_category(self,obj):
+    def get_category(self, obj):
         categories = obj.category.all()
-        return[
-            {
-                "id": category.id,
-                "category_name": category.category_name
-            }
+        return [
+            {"id": category.id, "category_name": category.category_name}
             for category in categories
         ]
 
-    def get_supplier(self,obj):
+    def get_supplier(self, obj):
         supplier = obj.supplier
         return {
-            'id': supplier.id,
-            'supplier_name': supplier.supplier_name,
-            'phone': supplier.phone,
-            'email': supplier.email,
+            "id": supplier.id,
+            "supplier_name": supplier.supplier_name,
+            "phone": supplier.phone,
+            "email": supplier.email,
         }

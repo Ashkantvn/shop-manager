@@ -146,8 +146,9 @@ class ManagerSerializer(serializers.ModelSerializer):
                 "username": worker.user.username,
                 "first_name": worker.user.first_name,
                 "last_name": worker.user.last_name,
-                "working_time":
-                    [str(time) for time in worker.working_times.all()],
+                "working_time": [
+                    str(time) for time in worker.working_times.all()
+                ],
             }
             for worker in workers
         ]

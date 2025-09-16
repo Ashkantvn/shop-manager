@@ -3,5 +3,5 @@ from dashboard import consumers
 
 
 websocket_urlpatterns = [
-    path('ws/products/', consumers.ProductConsumer.as_asgi()),
+    path("ws/products/", consumers.ProductConsumer.as_asgi()),
 ]

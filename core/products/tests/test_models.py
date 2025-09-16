@@ -1,11 +1,8 @@
 import pytest
-from products.tests.fixtures import (
-    supplier,
-    category,
-    product
-)
+from products.tests.fixtures import supplier, category, product
 from products import models
 from datetime import date
+
 
 @pytest.mark.django_db
 class TestProductsModels:
@@ -35,14 +32,14 @@ class TestProductsModels:
         assert isinstance(product.category.all()[0], models.Category)
         assert product.brand == "Brand name"
         assert product.quantity == 135.6
-        assert product.expire_date == date(2025,1,3)
+        assert product.expire_date == date(2025, 1, 3)
         assert isinstance(product.supplier, models.Supplier)
         assert product.location == "Location"
 
     # Check str method
     def test_supplier_str(self, supplier):
         assert str(supplier) == supplier.supplier_name
-    
+
     def test_category_str(self, category):
         assert str(category) == category.category_name
 

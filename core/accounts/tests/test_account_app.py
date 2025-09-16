@@ -77,9 +77,8 @@ class TestAccountApp:
         response = client.post(url, data=data)
 
         assert response.status_code == 201
-        assert (
-            models.WorkingTime.objects.filter(business_worker=worker).exists()
-        )
+        assert models.WorkingTime.objects.filter(
+            business_worker=worker).exists()
 
     # Test for app logout view
     def test_app_GET_logout_view(self, authenticated_manager):
