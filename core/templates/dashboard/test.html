@@ -1,27 +1,15 @@
 {% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Dashboard<h2>
+<h2>Notifications</h2>
+<ul class="notifications">
+<ul>
+{% endblock content %}
+
+
 
 {% block script %}
-<script>
-  const socket = new WebSocket("ws://localhost:8000/ws/products/");
-
-  socket.onmessage = function(event) {
-    const data = JSON.parse(event.data);
-    if (data.type === "updated") {
-      console.log(data);
-      
-      console.log("Product updated:", data.product);
-      console.log("Changes:", data.changes);
-    } else if (data.type === "created") {
-      console.log("New product created:", data.message);
-    }
-  };
-
-  socket.onopen = function() {
-    console.log("WebSocket connection established");
-  };
-
-  socket.onclose = function() {
-    console.log("WebSocket connection closed");
-  };
-</script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock script %}
