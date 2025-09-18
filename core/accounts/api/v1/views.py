@@ -62,7 +62,9 @@ class UserLogoutView(APIView):
             access_token = AccessToken(access_token_str)
             access_token_str = str(access_token)
 
-            AccessTokenBlackList.objects.get_or_create(token=access_token_str)
+            AccessTokenBlackList.objects.get_or_create(
+                token=access_token_str
+            )
 
         except TokenError as error:
             return Response(
@@ -91,7 +93,8 @@ class UserUpdateView(APIView):
             user__user_slug=user_slug
         )
         serializer = WorkingTimeSerializer(
-            data=request.data, context={
+            data=request.data,
+            context={
                 "request": request,
                 "worker": business_worker
             }

@@ -31,7 +31,7 @@ urlpatterns = [
     path("api/v1/products/", include("products.api.v1.urls")),
     path("products/", include("products.urls")),
     # Dashboard URL
-    path("dashboard/", include("dashboard.urls"))
+    path("dashboard/", include("dashboard.urls")),
 ]
 
 

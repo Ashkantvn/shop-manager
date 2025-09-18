@@ -76,10 +76,7 @@ class TestAccountsModels:
             self,
             blacklist_access_token):
         assert blacklist_access_token.pk is not None
-        assert isinstance(
-            blacklist_access_token,
-            models.AccessTokenBlackList
-        )
+        assert isinstance(blacklist_access_token, models.AccessTokenBlackList)
         assert isinstance(blacklist_access_token.token, str)
 
     def test_blacklist_access_token_str_method(

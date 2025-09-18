@@ -112,9 +112,7 @@ class AppUserUpdateView(View):
                 {"error": "User not found."}
             )
         return render(
-            request,
-            "accounts/update.html",
-            {"target_user": str(target_user)}
+            request, "accounts/update.html", {"target_user": str(target_user)}
         )
 
     def post(self, request, user_slug):
