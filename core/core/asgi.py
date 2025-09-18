@@ -13,7 +13,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from dashboard.routing import websocket_urlpatterns  # Adjust to your app name
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.prod")
 
 application = ProtocolTypeRouter(
     {
