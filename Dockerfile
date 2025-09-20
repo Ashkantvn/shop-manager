@@ -3,13 +3,11 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN apt-get update && apt-get install -y postgresql-client
+RUN apt-get update && apt-get install -y postgresql-client && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# work directory
 WORKDIR /app
 
 COPY requirements.txt /app/
-
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
