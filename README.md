@@ -1,8 +1,8 @@
-# ⚡ Django Hybrid Realtime Shop manager
+# ⚡ Django Realtime Shop manager
 
 ## 📖 Overview
 
-**Django Hybrid Realtime Shop manager** is a Django project that combines three layers:
+**Django Realtime Shop manager** is a Django project that combines three layers:
 
 - 🧱 **Django Templates** — for server-rendered HTML pages  
 - 🔌 **Django REST Framework (DRF)** — for RESTful APIs  
