@@ -1,0 +1,46 @@
+services:
+  django:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./core:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./env/.env.dev
+    depends_on:
+      - postgres
+      - redis  
+    networks:
+      - backend
+      
+  postgres:
+    image: postgres:16
+    env_file:
+      - ./env/.env.dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - backend
+
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    networks:
+      - backend
+    
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  backend:
