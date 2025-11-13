@@ -1,0 +1,13 @@
+django==5.2.8
+
+# Django Channels for WebSocket support
+channels
+
+# Redis client
+redis
+
+# PostgreSQL
+psycopg2-binary
+
+# environment variables management
+python-decouple
