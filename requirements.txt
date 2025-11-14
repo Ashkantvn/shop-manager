@@ -11,3 +11,11 @@ psycopg2-binary
 
 # environment variables management
 python-decouple
+
+# pytest
+pytest
+pytest-django
+
+# Reformat code
+black
+flake8
