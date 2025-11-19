@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from http import HTTPStatus as status
 from django.contrib.auth import authenticate, login, logout
 from accounts.utils import render_login_success
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class LoginView(View):
@@ -32,5 +33,7 @@ class LoginView(View):
 
             
 
-class LogoutView(View):
-    pass
+class LogoutView(LoginRequiredMixin,View):
+    def post(self, request):
+        logout(request)
+        return redirect('accounts:login')
