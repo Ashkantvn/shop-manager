@@ -210,23 +210,6 @@ docker compose -f docker-compose.dev.yml exec django black core/
 - **Staff** - Can access dashboard and manage products
 - **Regular User** - Can only view products
 
-## 🌳 Environment Variables
-
-Required in `.env.dev`:
-```
-SECRET_KEY=your-secret-key
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-
-POSTGRES_DB=shop_db
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-DB_HOST=postgres
-DB_PORT=5432
-
-REDIS_URL=redis://redis:6379/0
-```
-
 ## 📦 Key Dependencies
 
 - **Django 5.2.8** - Web framework
@@ -238,21 +221,6 @@ REDIS_URL=redis://redis:6379/0
 - **Black** - Code formatter
 - **Flake8** - Linter
 
-## 🚀 Production Deployment
-
-For production:
-1. Set `DEBUG=False` in settings
-2. Use environment-specific settings file
-3. Configure proper `ALLOWED_HOSTS`
-4. Use Gunicorn + Daphne with reverse proxy (Nginx)
-5. Enable HTTPS/SSL
-6. Configure PostgreSQL backup strategy
-7. Set up Redis persistence
-
 ## 📝 License
 
 MIT License
-
-## 👤 Author
-
-ashkantvn
