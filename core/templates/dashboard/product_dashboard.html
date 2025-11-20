@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block extra_link %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock extra_link %}
+
+
+{% block content %}
+<h2>Product Dashboard</h2>
+<p class="info-text">Waiting for product updates...</p>
+<div id="message-box">
+    <p class="no-messages">No messages yet</p>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock extra_js %}
