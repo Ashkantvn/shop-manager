@@ -1,5 +1,4 @@
 import pytest
-import json
 from channels.testing import WebsocketCommunicator
 from core.asgi import application
 from django.contrib.auth import get_user_model
@@ -7,13 +6,13 @@ from asgiref.sync import sync_to_async
 
 User = get_user_model()
 
+
 @pytest.mark.asyncio
 @pytest.mark.django_db
 class TestDashboardWebSocket:
     async def test_websocket_connection(self):
         user = await sync_to_async(User.objects.create_superuser)(
-            username="admin",
-            password="adminpassword"
+            username="admin", password="adminpassword"
         )
 
         communicator = WebsocketCommunicator(application, "/ws/products/")

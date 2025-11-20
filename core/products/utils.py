@@ -7,7 +7,8 @@ from datetime import datetime
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
-def get_product_or_render_404(request ,product_slug):
+
+def get_product_or_render_404(request, product_slug):
     """
     Return product object if found, otherwise render a 404 page.
     """
@@ -15,13 +16,17 @@ def get_product_or_render_404(request ,product_slug):
         result = get_object_or_404(models.Product, product_slug=product_slug)
         return result, False
     except Http404:
-        return render(
-            request,
-            "404.html",
-            {'message': 'Product not found'},
-            status= status.NOT_FOUND
-        ), True
-    
+        return (
+            render(
+                request,
+                "404.html",
+                {"message": "Product not found"},
+                status=status.NOT_FOUND,
+            ),
+            True,
+        )
+
+
 def save_product(request, product=None):
     if product is None:
         product = models.Product()
@@ -48,6 +53,7 @@ def save_product(request, product=None):
     product.save()
     return product
 
+
 def notify_product_changes(message, action):
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
@@ -56,5 +62,5 @@ def notify_product_changes(message, action):
             "type": "product_change_notification",
             "message": message,
             "action": action,
-        }
+        },
     )
