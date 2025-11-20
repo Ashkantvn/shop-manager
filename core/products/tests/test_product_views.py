@@ -2,6 +2,8 @@ from django.urls import reverse
 from django.test import Client
 from http import HTTPStatus as status
 import pytest
+from datetime import date
+from products import models
 
 @pytest.mark.django_db
 class TestProductViews:
@@ -15,7 +17,7 @@ class TestProductViews:
             "quantity": 10,
             "price": 20.5,
             "cost_price": 15.0,
-            "expiry_date": "2024-12-31",
+            "expiry_date": date(2024, 12, 31),
             "supplier_number": "1234567890"
         }
 
@@ -39,7 +41,7 @@ class TestProductViews:
     def test_GET_product_detail_404(self):
         response = self.client.get(self.product_detail_url)
         assert response.status_code == status.NOT_FOUND
-        assert "products/product_detail.html" in [
+        assert "404.html" in [
             template.name for template in response.templates
         ]
 
@@ -52,6 +54,10 @@ class TestProductViews:
         assert "products/product_detail.html" in [
             template.name for template in response.templates
         ]
+        # Check data is updated
+        product.refresh_from_db()
+        for field, value in self.product_data.items():
+            assert getattr(product, field) == value
 
     def test_POST_product_detail_302(self):
         response = self.client.post(
@@ -61,13 +67,13 @@ class TestProductViews:
         assert response.status_code == status.FOUND
         
 
-    def test_POST_product_detail_404(self):
-        response = self.client.post(
+    def test_POST_product_detail_404(self, authenticated_client):
+        response = authenticated_client.post(
             self.product_detail_url,
             self.product_data
         )
         assert response.status_code == status.NOT_FOUND
-        assert "products/product_detail.html" in [
+        assert "404.html" in [
             template.name for template in response.templates
         ]
 
@@ -83,12 +89,20 @@ class TestProductViews:
         response = self.client.get(self.product_create_url)
         assert response.status_code == status.FOUND
 
-    def test_POST_product_creation_201(self):
-        response = self.client.post(self.product_create_url, self.product_data)
+    def test_POST_product_creation_201(self, authenticated_client):
+        response = authenticated_client.post(
+            self.product_create_url,
+            self.product_data
+        )
         assert response.status_code == status.CREATED
         assert "products/product_create.html" in [
             template.name for template in response.templates
         ]
+        # Check product created
+        product = models.Product.objects.filter(
+            product_name=self.product_data["product_name"]
+        )
+        assert product.exists(), "Product was not created successfully."
 
     def test_POST_product_creation_302(self):
         response = self.client.post(self.product_create_url, self.product_data)
@@ -109,7 +123,7 @@ class TestProductViews:
     def test_GET_product_delete_404(self, authenticated_client):
         response = authenticated_client.get(self.product_delete_url)
         assert response.status_code == status.NOT_FOUND
-        assert "products/product_delete.html" in [
+        assert "404.html" in [
             template.name for template in response.templates
         ]
 
@@ -127,6 +141,6 @@ class TestProductViews:
     def test_POST_product_delete_404(self, authenticated_client):
         response = authenticated_client.post(self.product_delete_url)
         assert response.status_code == status.NOT_FOUND
-        assert "products/product_delete.html" in [
+        assert "404.html" in [
             template.name for template in response.templates
         ]
