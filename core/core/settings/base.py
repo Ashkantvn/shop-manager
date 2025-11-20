@@ -20,6 +20,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'channels',
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
