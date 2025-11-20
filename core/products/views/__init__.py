@@ -1,0 +1,3 @@
+from .product_create import ProductCreateView
+from .product_detail import ProductDetailView
+from .product_list_delete import ProductDeleteView, ProductListView

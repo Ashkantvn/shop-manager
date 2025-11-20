@@ -16,7 +16,7 @@ def super_user(db):
         user.delete()
 
 @pytest.fixture
-def authenticated_client():
+def authenticated_client(super_user):
     client = Client()
     client.login(username='testuser', password='password')
     yield client
