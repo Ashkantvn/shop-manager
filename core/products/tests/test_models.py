@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.mark.django_db
 class TestProductModels:
     def test_create_product_model(self, product):

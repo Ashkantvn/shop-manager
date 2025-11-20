@@ -9,10 +9,8 @@ class ProductDetailView(View):
         if not_found:
             return result
         else:
-            context = {
-                'product': result
-            }
-            return render(request, "products/product_detail.html", context)     
+            context = {"product": result}
+            return render(request, "products/product_detail.html", context)
 
     def post(self, request, product_slug):
         # Check if user is authenticated

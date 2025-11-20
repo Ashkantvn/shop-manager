@@ -1,10 +1,12 @@
 django==5.2.8
+daphne
 
 # Django Channels for WebSocket support
 channels
 
 # Redis client
 redis
+channels_redis
 
 # PostgreSQL
 psycopg2-binary
@@ -15,6 +17,7 @@ python-decouple
 # pytest
 pytest
 pytest-django
+pytest-asyncio
 
 # Reformat code
 black

@@ -5,6 +5,7 @@ import pytest
 from datetime import date
 from products import models
 
+
 @pytest.mark.django_db
 class TestProductViews:
     def setup_method(self):
@@ -12,13 +13,13 @@ class TestProductViews:
         self.product_detail_url = reverse("products:detail", args=["test"])
         self.product_create_url = reverse("products:create")
         self.product_delete_url = reverse("products:delete", args=["test"])
-        self.product_data ={
+        self.product_data = {
             "product_name": "Updated Product Name",
             "quantity": 10,
             "price": 20.5,
             "cost_price": 15.0,
             "expiry_date": date(2024, 12, 31),
-            "supplier_number": "1234567890"
+            "supplier_number": "1234567890",
         }
 
     # Product list test
@@ -31,7 +32,7 @@ class TestProductViews:
         ]
 
     # Product detail tests (get and Update)
-    def test_GET_product_detail_200(self,product):
+    def test_GET_product_detail_200(self, product):
         response = self.client.get(self.product_detail_url)
         assert response.status_code == status.OK
         assert "products/product_detail.html" in [
@@ -65,7 +66,6 @@ class TestProductViews:
             self.product_data
         )
         assert response.status_code == status.FOUND
-        
 
     def test_POST_product_detail_404(self, authenticated_client):
         response = authenticated_client.post(
@@ -105,7 +105,10 @@ class TestProductViews:
         assert product.exists(), "Product was not created successfully."
 
     def test_POST_product_creation_302(self):
-        response = self.client.post(self.product_create_url, self.product_data)
+        response = self.client.post(
+            self.product_create_url,
+            self.product_data
+        )
         assert response.status_code == status.FOUND
 
     # Product delete tests

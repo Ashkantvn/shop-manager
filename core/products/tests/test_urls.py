@@ -2,6 +2,7 @@ from django.urls import reverse, resolve
 from products import views
 import pytest
 
+
 @pytest.mark.django_db
 class TestProductUrls:
     def test_product_list_urls(self):
