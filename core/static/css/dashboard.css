@@ -1,0 +1,25 @@
+.message-element{
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+.type-element{
+    font-weight: bold;
+    color: #333;
+}
+.info-text {
+    color: #999;
+    font-size: 0.9em;
+}
+.no-messages {
+    color: #999;
+}
+#message-box {
+    min-height: 200px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
